@@ -6,7 +6,7 @@ interface NavigatingTabs {
 }
 
 const initialValue: NavigatingTabs = {
-      isSelected: "chats",
+      isSelected: "Chats",
       setSelected: () => {}
 }
 
@@ -18,7 +18,7 @@ export const useContextApi = () => {
 };
 
 const StoreProvider = (props:any) => {
-      const [isSelected, setSelected] = useState("chats")
+      const [isSelected, setSelected] = useState("Chats")
 
       return (
             <store.Provider value={{ isSelected, setSelected }}>
