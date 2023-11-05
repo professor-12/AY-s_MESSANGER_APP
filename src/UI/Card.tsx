@@ -1,6 +1,6 @@
 const Card = (props:any) => {
   return (
-        <div className="rounded-lg p-3 hover:bg-secondary/90">{props.children}</div>
+        <div className="rounded-lg px-4 pr-5 p-2 hover:bg-mutedcolor">{props.children}</div>
   )
 }
 

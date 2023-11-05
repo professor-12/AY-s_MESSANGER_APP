@@ -10,26 +10,29 @@ const Chats = () => {
     return (
         <motion.div
             variants={{
-                hidden: { opacity: 0, x: -17 },
                 visible: { opacity: 1, x: 0 },
+                hidden: { opacity: 0, x: -17 },
+                exit: { opacity: 0, x: 17},
             }}
             initial="hidden"
+            exit="hidden"
            
             animate="visible"
-            transition={{ type: "just" }}
-            className="space-y-5"
+            transition={{ type: "just"}}
+            className="space-y-3"
         >
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl">Chats</h1>
-                <ul className="relative  flex space-x-7 ">
+                <ul className="relative  flex ">
                     {data.map((i, index) => (
                         <li
+                            key={i.tooltip}
                             onClick={() => {
                                 setSelected(optionTab[index]);
                             }}
-                            className=" group cursor-pointer"
+                            className=" group hover:bg-mutedcolor rounded-lg p-3 cursor-pointer"
                         >
-                            <span className="text-gray-500">{i.img}</span>
+                            <span className="text-gray-400">{i.img}</span>
                             <div
                                 className="bg-white md:group-hover:flex duration-150 hidden top-10  p-2 px-3 
                                 mr-12

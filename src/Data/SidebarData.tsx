@@ -4,7 +4,6 @@ interface ToolTip {
 }
 
 export const ToolTipData: ToolTip[] = [
-    { img: "", tooltip: "Profile" },
     {
         img: (
             <svg
