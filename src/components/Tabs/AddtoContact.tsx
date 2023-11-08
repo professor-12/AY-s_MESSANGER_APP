@@ -6,14 +6,7 @@ import ExpandableCard from "../../UI/ExpandableCard";
 import { useState, useEffect } from "react";
 const AddtoContact = () => {
     const BASE_URL = import.meta.env.VITE_BASEURL;
-    interface User {
-        displayname: string;
-        user_profile: string;
-        date_joined: string;
-        email: string;
-        profilepics: string;
-        id: number;
-    }
+   
     interface  Profile {
         displayname: string;
         email: string;

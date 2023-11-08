@@ -1,32 +1,62 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { loader as ChatLoader } from "./components/MessageTab/Chat";
+import { Loader as AuthLoader } from "./components/Auth/Authen";
+import Root from "./components/Root/Root";
 import MessageTab from "./components/MessageTab/MessageTab";
-import Sidebar from "./components/sideBar/Sidebar";
-import Tab from "./components/Tabs/Tab";
-import { useEffect } from "react";
-import useFetch from "./hooks/useFetch";
-import { useContextApi } from "./store/contextApi/store";
+import Chat from "./components/MessageTab/Chat";
+import Auth from "./components/Auth/Authen";
+import { loader } from "./components/Root/Root";
 function App() {
-    const { profile, setprofile } = useContextApi();
-    const data = useFetch;
-    useEffect(() => {
-        const func = async () => {
-            const { user_profile } = await data();
-            setprofile(user_profile);
-        };
 
-        func();
-
-        return () => {};
-    }, [setprofile]);
+   
+    const route = createBrowserRouter([
+        {
+            path: "",
+            element: <Root></Root>,
+            loader: loader,
+            children: [
+                {
+                    path: "",
+                    element: <MessageTab></MessageTab>,
+                    children: [
+                        {
+                            index: true,
+                            element: (
+                                <div className="flex justify-center h-screen items-center  flex-col space-y-3">
+                                    <img
+                                        className="md:w-[24rem]"
+                                        src="https://ac-messenger-p.web.app/start_messaging_img.bf5aacaf.svg"
+                                        alt=""
+                                    />
+                                    <h1 className="text-xl">
+                                        Start Messaging with ACMessenger
+                                    </h1>
+                                    <p>
+                                        Select a chat in your inbox to start
+                                        messaging.
+                                    </p>
+                                </div>
+                            ),
+                        },
+                        {
+                            path: ":id",
+                            loader: ChatLoader,
+                            element: <Chat></Chat>,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            path: "auth",
+            element: <Auth />,
+            action: AuthLoader,
+        },
+    ]);
 
     return (
         <>
-            <div className="flex h-screen text-white bg-secondary">
-                <Sidebar />
-                <Tab />
-                <MessageTab></MessageTab>
-
-                {/* <Signup/> */}
-            </div>
+            <RouterProvider router={route}></RouterProvider>
         </>
     );
 }

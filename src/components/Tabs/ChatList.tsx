@@ -1,4 +1,6 @@
 import ExpandableCard from "../../UI/ExpandableCard";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 const ChatLists = () => {
     interface User {
         displayname: string;
@@ -8,14 +10,53 @@ const ChatLists = () => {
         profilepics: string;
         id: number;
     }
-    const Users: Array<User> = []
+    const [contacts, setcontacts] = useState<User[]>([]);
+    const fetchData = async () => {
+        const data = await fetch("http://127.0.0.1:8000/contact/", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization":
+                    "Token " +
+                    localStorage.getItem("usercredentialstokenACMESSANGER"),
+            },
+        });
+        const res = await data.json();
+        console.log(res)
+        setcontacts([...res]);
+
+    };
+    useEffect(() => {
+        if (
+            localStorage.getItem("usercredentialstokenACMESSANGER") ==
+                undefined ||
+            null
+        ) {
+            return;
+        }
+        fetchData();
+    }, []);
+    const Users: Array<User> = contacts;
+    if (Users.length == 0) {
+        return (
+            <div className="bg-secondary bg-blend-saturation p-3  rounded-xl ">
+                <h1 className="text-slate-400 font-semibold text-lg">
+                    You don't have any friend yet.
+                </h1>
+                <p className="text-sm text-gray-500">
+                    Go to the add to contact tab to add Contacts
+                </p>
+            </div>
+        );
+    }
     return Users.map((chat) => (
         <ExpandableCard>
-            <div
+            <Link
+                to={`${chat.user_profile}`}
                 className="flex p-3  cursor-pointer items-start  space-x-6"
                 key={chat.id}
             >
-                <div className="">
+                <div>
                     <img
                         className="h-[3.4rem] object-cover w-[3.4rem] rounded-full"
                         src={import.meta.env.VITE_BASEURL + chat?.profilepics}
@@ -29,7 +70,7 @@ const ChatLists = () => {
                         <p>{chat?.id}</p>
                     </div>
                 </div>
-            </div>
+            </Link>
         </ExpandableCard>
     ));
 };

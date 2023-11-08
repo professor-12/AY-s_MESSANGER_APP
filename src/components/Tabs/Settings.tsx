@@ -1,14 +1,19 @@
 import { motion } from "framer-motion";
 import ExpandableCard from "../../UI/ExpandableCard";
 import arrow from "../../assets/svgs/Arrow.svg";
-import darkmode from "../../assets/svgs/DarkMode.svg"
-import logout from "../../assets/svgs/Logout.svg"
+import darkmode from "../../assets/svgs/DarkMode.svg";
+import logout from "../../assets/svgs/Logout.svg";
 import { useContextApi } from "../../store/contextApi/store";
+import {useNavigate} from "react-router-dom"
 const Settings = () => {
-    const {setSelected }  = useContextApi()
+    const navigate =  useNavigate()
+    const { setSelected } = useContextApi();
+    const Logout = () => {
+        localStorage.removeItem("usercredentialstokenACMESSANGER");
+        navigate("/auth")
+    };
     return (
         <motion.div
-            onClick={()=> { setSelected("Chats") }}
             variants={{
                 visible: { opacity: 1, x: 0 },
                 hidden: { opacity: 0, x: -20 },
@@ -40,7 +45,7 @@ const Settings = () => {
                     <div className="flex cursor-pointer px-3 justify-between items-center">
                         <div className="flex space-x-3 items-center p-2">
                             <img src={logout} alt="" />
-                            <p>Logout</p>
+                            <p onClick={Logout}>Logout</p>
                         </div>
                     </div>
                 </ExpandableCard>

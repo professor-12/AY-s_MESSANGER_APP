@@ -6,9 +6,6 @@ import location from "../../assets/svgs/location.svg";
 import ExpandableCard from "../../UI/ExpandableCard";
 const Profile = () => {
     const { setSelected, profile } = useContextApi();
-    
-    
-
     return (
         <motion.div
             variants={{
@@ -62,7 +59,6 @@ const Profile = () => {
                 <ExpandableCard>
                     <div className="p-3 flex space-x-4">
                         <img src={location} alt="" />
-                        {/* Location */}
                         <p>Earth</p>
                     </div>
                 </ExpandableCard>

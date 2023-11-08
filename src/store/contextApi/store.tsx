@@ -17,6 +17,8 @@ interface NavigatingTabs {
     setSelected: Dispatch<SetStateAction<string>>;
     profile: Profile;
     setprofile: Dispatch<SetStateAction<Profile>>;
+    friendprofile: Profile;
+    setfriend_profile: Dispatch<SetStateAction<Profile>>;
 }
 
 const initialValue: NavigatingTabs = {
@@ -29,6 +31,14 @@ const initialValue: NavigatingTabs = {
         user_profile: "",
     },
     setprofile: () => {},
+    friendprofile: {
+        profilepics: "",
+        email: "",
+        displayname: "",
+        user_profile: "",
+    },
+
+    setfriend_profile: () => {}
 };
 
 const store = createContext(initialValue);
@@ -39,6 +49,12 @@ export const useContextApi = () => {
 
 const StoreProvider = (props: any) => {
     const [isSelected, setSelected] = useState("Chats");
+    const [friendprofile, setfriend_profile] = useState<Profile>({
+        profilepics: "",
+        email: "",
+        displayname: "",
+        user_profile: "",
+    });
     const [profile, setprofile] = useState<Profile>({
         profilepics: "",
         email: "",
@@ -48,7 +64,14 @@ const StoreProvider = (props: any) => {
 
     return (
         <store.Provider
-            value={{ isSelected, setSelected, profile, setprofile }}
+            value={{
+                isSelected,
+                setSelected,
+                profile,
+                setprofile,
+                friendprofile,
+                setfriend_profile,
+            }}
         >
             {props.children}
         </store.Provider>
