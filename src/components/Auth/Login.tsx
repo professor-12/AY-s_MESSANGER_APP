@@ -1,10 +1,9 @@
-import React, { FormEvent, useState } from "react";
+import  { FormEvent, useState } from "react";
 import { motion } from "framer-motion";
-import { Link, useSearchParams, Form, useSubmit } from "react-router-dom";
+import { Link , Form, useSubmit } from "react-router-dom";
 
 import HidePassword from "../../assets/svgs/HidePassword";
 const Login = () => {
-    const [params, setparams] = useSearchParams();
     const submit = useSubmit();
     const [name, setname] = useState({ value: "", touched: false });
     const [Password, setpassword] = useState({ value: "", touched: false });

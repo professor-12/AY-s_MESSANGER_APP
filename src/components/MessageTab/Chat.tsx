@@ -2,23 +2,19 @@ import ChatHeader from "./ChatHeader";
 import send from "../../assets/svgs/Send.svg";
 import File from "../../assets/svgs/File.svg";
 import Messages from "./Messages";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useLoaderData } from "react-router-dom";
-import { useContextApi } from "../../store/contextApi/store";
-const Chat = (props: any) => {
-    const { id } = useParams();
-    const { setfriend_profile, profile } = useContextApi();
+import { useLoaderData  } from "react-router-dom";
 
- 
+const Chat = () => {
+    const message = useLoaderData() as Object 
 
-    const message = useLoaderData();
+
+    const array : Object[] = [message]
     return (
         <div className="relative py-20  h-screen bg-secondary">
             <ChatHeader />
             {
                 <div className="h-[80%] p-2 space-y-4  flex  flex-col justify-end   gap-2 bg-[secondary]">
-                    {message?.map((messages: any) => {
+                    {array?.map((messages: any) => {
                         return (
                             <Messages
                                 key={messages.id}
@@ -49,7 +45,7 @@ const Chat = (props: any) => {
     );
 };
 
-export const loader = async ({ req, params }: any) => {
+export const loader = async ({ params }: any) => {
     const data = params.id;
     const BODY = {
         user: "OLAiya",

@@ -10,6 +10,7 @@ interface Profile {
     profilepics: string;
     email: string;
     displayname: string;
+    user: String;
     user_profile: string;
 }
 interface NavigatingTabs {
@@ -25,6 +26,7 @@ const initialValue: NavigatingTabs = {
     isSelected: "Chats",
     setSelected: () => {},
     profile: {
+        user: "",
         profilepics: "",
         email: "",
         displayname: "",
@@ -34,11 +36,12 @@ const initialValue: NavigatingTabs = {
     friendprofile: {
         profilepics: "",
         email: "",
+        user: "",
         displayname: "",
         user_profile: "",
     },
 
-    setfriend_profile: () => {}
+    setfriend_profile: () => {},
 };
 
 const store = createContext(initialValue);
@@ -52,11 +55,13 @@ const StoreProvider = (props: any) => {
     const [friendprofile, setfriend_profile] = useState<Profile>({
         profilepics: "",
         email: "",
+        user: "",
         displayname: "",
         user_profile: "",
     });
     const [profile, setprofile] = useState<Profile>({
         profilepics: "",
+        user: "",
         email: "",
         displayname: "",
         user_profile: "",

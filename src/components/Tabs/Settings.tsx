@@ -3,11 +3,9 @@ import ExpandableCard from "../../UI/ExpandableCard";
 import arrow from "../../assets/svgs/Arrow.svg";
 import darkmode from "../../assets/svgs/DarkMode.svg";
 import logout from "../../assets/svgs/Logout.svg";
-import { useContextApi } from "../../store/contextApi/store";
 import {useNavigate} from "react-router-dom"
 const Settings = () => {
     const navigate =  useNavigate()
-    const { setSelected } = useContextApi();
     const Logout = () => {
         localStorage.removeItem("usercredentialstokenACMESSANGER");
         navigate("/auth")

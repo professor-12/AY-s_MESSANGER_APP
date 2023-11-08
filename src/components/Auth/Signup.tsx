@@ -96,7 +96,7 @@ const Signup = () => {
                                     value: e.target.value,
                                 }))
                             }
-                            onBlur={(e) => {
+                            onBlur={() => {
                                 setname((prev) => ({
                                     ...prev,
                                     touched: true,
@@ -130,7 +130,7 @@ const Signup = () => {
                                     value: e.target.value,
                                 }))
                             }
-                            onBlur={(e) => {
+                            onBlur={() => {
                                 setpassword((prev) => ({
                                     ...prev,
                                     touched: true,
@@ -167,7 +167,7 @@ const Signup = () => {
                                     value: e.target.value,
                                 }))
                             }
-                            onBlur={(e) => {
+                            onBlur={() => {
                                 setcpassword((prev) => ({
                                     ...prev,
                                     touched: true,
