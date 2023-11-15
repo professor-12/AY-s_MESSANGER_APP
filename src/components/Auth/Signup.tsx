@@ -1,10 +1,13 @@
 import { motion } from "framer-motion";
 import { useState, FormEvent } from "react";
-import { Link, Form } from "react-router-dom";
-import { useSubmit } from "react-router-dom";
+import { useSubmit, useNavigation, Link, Form } from "react-router-dom";
+import Loading from "../Loading/Loading";
 
 import HidePassword from "../../assets/svgs/HidePassword";
 const Signup = () => {
+    const navigate = useNavigation()
+    const submitting = navigate.state == "submitting"
+    console.log(submitting)
     const submit = useSubmit();
     const [email, setemail] = useState({ value: "", touched: false });
     const [name, setname] = useState({ value: "", touched: false });
@@ -29,10 +32,15 @@ const Signup = () => {
         setpassword((prev) => ({ ...prev, touched: true }));
         setcpassword((prev) => ({ ...prev, touched: true }));
         e.preventDefault();
-        if (!formisvalid)
-            return;
-        submit({username: name.value, email: email.value,password: Password.value }, { method: "post"  });
-        alert("S")
+        if (!formisvalid) return;
+        submit(
+            {
+                username: name.value,
+                email: email.value,
+                password: Password.value,
+            },
+            { method: "post" }
+        );
         setemail({ value: "", touched: false });
         setname({ value: "", touched: false });
         setcpassword({ value: "", touched: false });
@@ -41,12 +49,16 @@ const Signup = () => {
 
     return (
         <Form
-    
             onSubmit={(e) => {
                 handleSubmit(e);
             }}
             className="w-full "
         >
+            {
+                submitting &&
+                <Loading loading="Submitting"/>
+
+            }
             <motion.div
                 animate={{ x: [-100, 0], opacity: [0, 1] }}
                 transition={{ type: "just" }}
@@ -187,19 +199,18 @@ const Signup = () => {
                     </div>
                     <motion.button
                         type="submit"
-                        disabled={!formisvalid}
-
+                        disabled={!formisvalid || submitting}
                         whileHover={{ scale: 1.01 }}
                         whileTap={{ scale: 0.99 }}
                         className="bg-blue-500 p-3 disabled:bg-gray-500 disabled:cursor-not-allowed  rounded-xl text-white text-center focus:outline-none"
                     >
-                        Sign up
+                        {!submitting ? "Signup" : "Signing up" }
                     </motion.button>
                 </div>
             </motion.div>
             <div className="text-slate-500 ml-4 text-base w-full">
                 Already have an account?{" "}
-                <Link  to={"/auth?mode=Login"} className="text-blue-500">
+                <Link to={"/auth?mode=Login"} className="text-blue-500">
                     Login
                 </Link>
             </div>

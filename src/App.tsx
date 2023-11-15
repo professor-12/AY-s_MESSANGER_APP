@@ -6,13 +6,12 @@ import MessageTab from "./components/MessageTab/MessageTab";
 import Chat from "./components/MessageTab/Chat";
 import Auth from "./components/Auth/Authen";
 import { loader } from "./components/Root/Root";
+import Error from "./components/Error/Error";
 function App() {
-
-   
     const route = createBrowserRouter([
         {
-            path: "",
             element: <Root></Root>,
+            errorElement: <Error />,
             loader: loader,
             children: [
                 {

@@ -1,16 +1,26 @@
-import  { FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import { motion } from "framer-motion";
-import { Link , Form, useSubmit } from "react-router-dom";
+import {
+    Link,
+    Form,
+    useSubmit,
+    useActionData,
+    useNavigation,
+} from "react-router-dom";
 
 import HidePassword from "../../assets/svgs/HidePassword";
+import Loading from "../Loading/Loading";
 const Login = () => {
+    const submitting = useNavigation();
+    const issubmitting = submitting.state == "submitting";
+    const error = useActionData() as any;
+    console.log(error);
     const submit = useSubmit();
     const [name, setname] = useState({ value: "", touched: false });
     const [Password, setpassword] = useState({ value: "", touched: false });
 
     let nameisvalid = name.value.trim().length > 0;
     let Passwordisvalid = Password.value.trim().length > 0;
-
     let namehaserror = !nameisvalid && name.touched;
     let Passwordhaserror = !Passwordisvalid && Password.touched;
     const formisvalid = nameisvalid && Passwordisvalid;
@@ -31,6 +41,7 @@ const Login = () => {
     };
     return (
         <Form className="w-full" onSubmit={(e) => handleSubmit(e)}>
+            {issubmitting && <Loading loading="signing in"></Loading>}
             <motion.div
                 animate={{ x: [-100, 0], opacity: [0, 1] }}
                 transition={{ type: "just" }}
@@ -41,6 +52,12 @@ const Login = () => {
                     <p className="text-[#92a9a2] text-base">
                         Enter your credentials
                     </p>
+
+                    {error && (
+                        <div className="bg-red-400 rounded p-2 my-5 text-red-900 text-lg  ring-red-400/50 ring-2">
+                            Invalid Name or Password
+                        </div>
+                    )}
                 </div>
                 <div className="space-y-5  w-full flex flex-col">
                     <div className="space-y-3">
@@ -108,14 +125,14 @@ const Login = () => {
                         whileTap={{ scale: 0.99 }}
                         className="bg-blue-500 disabled:bg-gray-400 disabled:cursor-not-allowed p-3  rounded-xl text-white text-center focus:outline-none"
                     >
-                        Sign in
+                        {issubmitting ? "Signing in" : "Sign in"}
                     </motion.button>
                 </div>
             </motion.div>
             <div className="text-slate-400 ml-4 text-base w-full">
                 Don't have an account?{"  "}
                 <Link to={"/auth?mode=signup"} className="text-blue-500">
-                    Signin
+                    sign in
                 </Link>
             </div>
         </Form>

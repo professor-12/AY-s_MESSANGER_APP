@@ -1,48 +1,59 @@
 import { useContextApi } from "../../store/contextApi/store";
-import {useEffect} from 'react'
 const Messages = ({ message }: any) => {
-    const { friendprofile, profile , setfriend_profile  } = useContextApi();
-   useEffect(() => {
-       fetch("http://127.0.0.1:8000/profile/", {
-           method: "GET",
-           headers: {
-               "Content-Type": "application/json",
-               Authorization:
-                   "Token " +
-                   localStorage.getItem("usercredentialstokenACMESSANGER"),
-           },
-       })
-           .then((res) => {
-               return res.json();
-           })
-           .then((profile) => {
-               setfriend_profile(profile);
-               alert(profile);
-           });
-   }, []);
-    const style = message.sender == profile.user
+    const { friendprofile } = useContextApi();
+    const style = message.reciever == friendprofile.user;
     const { profilepics } = friendprofile;
+
+    function convertToHHMM(timeString: any) {
+        const [hours, minutes, seconds] = timeString?.split(":");
+        const formattedTime = new Date(
+            0,
+            0,
+            0,
+            hours,
+            minutes,
+            seconds
+        ).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+        return formattedTime;
+    }
+
+    const originalTime = message.time;
+    const convertedTime = convertToHHMM(originalTime);
 
     return (
         <>
-             <div className={`flex ${style && 'justify-end'}  w-full`}>
-                <div className="text-black cursor-pointer   flex space-x-2 spa ">
-                    {
-
-                    !style &&
+            <div className={`flex  ${style && "justify-end"} w-full`}>
+                <div className="text-black cursor-pointer   flex space-x-2  space-y-2">
+                    {!style && (
                         <img
-                            src={import.meta.env.VITE_BASEURL + "/" + profilepics}
+                            src={
+                                import.meta.env.VITE_BASEURL + "/" + profilepics
+                            }
                             className="h-12 w-12 object-cover rounded-full"
                             alt="ddd"
                         />
-                    }
-                    <div className={` ${style ? " bg-blue-400/90  text-white rounded-br" : "rounded-bl"} h-12 bg-white p-2 px-3 rounded-3xl`}>
-                    <p>{message?.message}</p>
+                    )}
+                    <div>
+                        <div
+                            className={` flex ${
+                                style
+                                    ? "bg-blue-400  text-white rounded-br min-h-12  p-2 px-3 rounded-3xl"
+                                    : "rounded-bl min-h-12  bg-white p-2 px-3 rounded-3xl"
+                            } `}
+                        >
+                            <p>{message?.message}</p>
+                        </div>
+                        <div
+                            className={`dark:text-slate-200 text-xs  ${
+                                style ? "text-right" : "text-left"
+                            }`}
+                        >
+                            {convertedTime}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
         </>
-       
     );
 };
 

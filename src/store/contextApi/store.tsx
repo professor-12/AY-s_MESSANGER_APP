@@ -9,6 +9,8 @@ import {
 interface Profile {
     profilepics: string;
     email: string;
+    bio: string;
+    location: string;
     displayname: string;
     user: String;
     user_profile: string;
@@ -27,6 +29,8 @@ const initialValue: NavigatingTabs = {
     setSelected: () => {},
     profile: {
         user: "",
+        location: "",
+        bio: "",
         profilepics: "",
         email: "",
         displayname: "",
@@ -37,6 +41,8 @@ const initialValue: NavigatingTabs = {
         profilepics: "",
         email: "",
         user: "",
+        location: "",
+        bio: "",
         displayname: "",
         user_profile: "",
     },
@@ -56,13 +62,17 @@ const StoreProvider = (props: any) => {
         profilepics: "",
         email: "",
         user: "",
+        location: "",
+        bio: "",
         displayname: "",
         user_profile: "",
     });
     const [profile, setprofile] = useState<Profile>({
         profilepics: "",
-        user: "",
         email: "",
+        user: "",
+        location: "",
+        bio: "",
         displayname: "",
         user_profile: "",
     });

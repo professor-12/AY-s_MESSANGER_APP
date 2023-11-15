@@ -16,10 +16,9 @@ const Chats = () => {
             }}
             initial="hidden"
             exit="hidden"
-           
             animate="visible"
             transition={{ type: "just"}}
-            className="space-y-3"
+            className="space-y-3 overflow-y-auto"
         >
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl">Chats</h1>
@@ -30,9 +29,9 @@ const Chats = () => {
                             onClick={() => {
                                 setSelected(optionTab[index]);
                             }}
-                            className=" group hover:bg-mutedcolor rounded-lg p-3 cursor-pointer"
+                            className=" group hover:dark:bg-mutedcolor rounded-lg p-3 cursor-pointer"
                         >
-                            <span className="text-gray-400">{i.img}</span>
+                            <span className="text-slate-700  dark:text-gray-400">{i.img}</span>
                             <div
                                 className="bg-white md:group-hover:flex duration-150 hidden top-10  p-2 px-3 
                                 mr-12

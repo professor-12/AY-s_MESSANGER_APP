@@ -6,8 +6,8 @@ import ExpandableCard from "../../UI/ExpandableCard";
 import { useState, useEffect } from "react";
 const AddtoContact = () => {
     const BASE_URL = import.meta.env.VITE_BASEURL;
-   
-    interface  Profile {
+
+    interface Profile {
         displayname: string;
         email: string;
         profilepics: string;
@@ -27,7 +27,6 @@ const AddtoContact = () => {
             setUsers(e);
         });
     }, []);
-    console.log(Users);
 
     const { setSelected } = useContextApi();
     return (
@@ -55,10 +54,15 @@ const AddtoContact = () => {
             </ExpandableCard>
             <form
                 action=""
-                className="overflow-hidden bg-secondary rounded-full w-full"
+                className="overflow-hidden dark:bg-secondary  rounded-full w-full"
             >
                 <input
-                    className="rounded-full px-3 p-2 w-full bg-secondary focus:outline-white"
+                    className="rounded-full px-3 p-2 w-full dark:bg-secondary 
+                    bg-lightgray  focus:border-2
+                    outline-0
+                    boder-slate-800
+                    focus:border-slate-700
+                    focus:dark:border-white"
                     type="text"
                     placeholder="Search"
                 />

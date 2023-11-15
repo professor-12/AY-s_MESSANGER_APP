@@ -2,8 +2,8 @@
 import { Outlet } from "react-router-dom";
 const MessageTab = () => {
 
-    return <div className=" bg-primary w-full">
+    return <div className="dark:bg-primary bg-white w-full">
         <Outlet></Outlet>
-    </div>;
+    </div>
 };
 export default MessageTab;

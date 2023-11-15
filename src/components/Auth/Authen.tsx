@@ -1,6 +1,6 @@
 import Signup from "./Signup";
 import { motion } from "framer-motion";
-import { redirect, useSearchParams } from "react-router-dom";
+import {  redirect, useSearchParams } from "react-router-dom";
 import Login from "./Login";
 const Auth = () => {
     const [params] = useSearchParams();
@@ -17,7 +17,7 @@ const Auth = () => {
 export default Auth;
 
 export const Loader = async ({ request }: any) => {
-    const mode = new URL(request.url).searchParams.get("mode") || "login";
+    const mode = new URL(request.url).searchParams.get("mode") || "Login";
     const data = await request.formData();
     const Data = {
         username: data.get("username"),
@@ -29,7 +29,7 @@ export const Loader = async ({ request }: any) => {
         password: data.get("password"),
     };
 
-    if (mode == "login") {
+    if (mode == "Login") {
         const res = await fetch("http://127.0.0.1:8000/" + mode + "/", {
             method: "POST",
             headers: {
@@ -37,11 +37,25 @@ export const Loader = async ({ request }: any) => {
             },
             body: JSON.stringify(Login),
         });
-        const constt = await res.json();
-        console.log(constt);
-        localStorage.setItem("user", constt.user);
-        localStorage.setItem("usercredentialstokenACMESSANGER", constt.token);
-        return redirect("/");
+
+        switch (res.status) {
+            case 404:
+                return res;
+            case 200:
+                const constt = await res.json();
+                console.log(constt);
+                localStorage.setItem("user", constt.user);
+                localStorage.setItem(
+                    "usercredentialstokenACMESSANGER",
+                    constt.token
+                );
+                return redirect("/");
+            default:
+                return redirect("/auth");
+        }
+
+    
+
     }
     const res = await fetch("http://127.0.0.1:8000/" + mode + "/", {
         method: "POST",
@@ -50,8 +64,10 @@ export const Loader = async ({ request }: any) => {
         },
         body: JSON.stringify(Data),
     });
+    if (!res.ok) {
+        return res;
+    }
     const constt = await res.json();
-    console.log(constt);
     localStorage.setItem("usercredentialstokenACMESSANGER", constt.token);
     return redirect("/");
 };

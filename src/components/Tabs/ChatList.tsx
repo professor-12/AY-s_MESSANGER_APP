@@ -16,15 +16,13 @@ const ChatLists = () => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization":
+                Authorization:
                     "Token " +
                     localStorage.getItem("usercredentialstokenACMESSANGER"),
             },
         });
         const res = await data.json();
-        console.log(res)
         setcontacts([...res]);
-
     };
     useEffect(() => {
         if (
@@ -66,8 +64,7 @@ const ChatLists = () => {
                 <div className="flex  flex-col">
                     <h1 className="text-[1.4rem]">{chat?.displayname}</h1>
                     <div className="flex font-medium text-gray-400/80 text-sm space-x-3">
-                        <p>{chat?.user_profile}</p>
-                        <p>{chat?.id}</p>
+                        
                     </div>
                 </div>
             </Link>
