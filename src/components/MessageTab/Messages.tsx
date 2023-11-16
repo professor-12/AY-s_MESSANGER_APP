@@ -19,10 +19,10 @@ const Messages = ({ message }: any) => {
 
     const originalTime = message.time;
     const convertedTime = convertToHHMM(originalTime);
-
+    console.log(message.img);
     return (
         <>
-            <div className={`flex  ${style && "justify-end"} w-full`}>
+            <div className={`flex  ${style && "justify-end "} w-full`}>
                 <div className="text-black cursor-pointer   flex space-x-2  space-y-2">
                     {!style && (
                         <img
@@ -30,19 +30,38 @@ const Messages = ({ message }: any) => {
                                 import.meta.env.VITE_BASEURL + "/" + profilepics
                             }
                             className="h-12 w-12 object-cover rounded-full"
-                            alt="ddd"
+                            alt=""
                         />
                     )}
                     <div>
-                        <div
-                            className={` flex ${
-                                style
-                                    ? "bg-blue-400  text-white rounded-br min-h-12  p-2 px-3 rounded-3xl"
-                                    : "rounded-bl min-h-12  bg-white p-2 px-3 rounded-3xl"
-                            } `}
-                        >
-                            <p>{message?.message}</p>
-                        </div>
+                        {message?.message.trim().length > 0 ? (
+                            <div
+                                className={` flex ${
+                                    style
+                                        ? "bg-blue-400  text-white rounded-br min-h-12  p-2 px-3 rounded-3xl"
+                                        : "rounded-bl min-h-12 aspect-auto  bg-white p-2 px-3 rounded-3xl"
+                                } `}
+                            >
+                                <p>{message?.message}</p>
+                            </div>
+                        ) : (
+                            <div
+                                className={` flex 
+                                
+                                         text-white h-[20rem]  overflow-hidden p-1   rounded-3xl w-40 
+                                `}
+                            >
+                                <img
+                                    className="rounded-3xl h-full w-full object-cover"
+                                    src={
+                                        import.meta.env.VITE_BASEURL +
+                                        "/" +
+                                        message.img
+                                    }
+                                    alt=""
+                                />
+                            </div>
+                        )}
                         <div
                             className={`dark:text-slate-200 text-xs  ${
                                 style ? "text-right" : "text-left"
