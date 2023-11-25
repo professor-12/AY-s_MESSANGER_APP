@@ -5,8 +5,10 @@ import darkmode from "../../assets/svgs/DarkMode.svg";
 import logout from "../../assets/svgs/Logout.svg";
 import { useNavigate } from "react-router-dom";
 import useDarkmode from "../../hooks/useDarkmode";
+import { useContextApi } from "../../store/contextApi/store";
 const Settings = (props: any) => {
     const navigate = useNavigate();
+    const { setSelected } = useContextApi()
     const Logout = () => {
         localStorage.removeItem("usercredentialstokenACMESSANGER");
         navigate("/auth");
@@ -24,7 +26,7 @@ const Settings = (props: any) => {
             exit="hidden"
         >
             <ExpandableCard>
-                <div className="flex  space-x-4 p-2">
+                <div onClick={()=> {setSelected("Chats")}} className="flex  space-x-4 p-2">
                     <img src={arrow} alt="" />
                     <p>Settings</p>
                 </div>

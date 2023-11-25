@@ -13,7 +13,7 @@ const Sidebar = () => {
     const tooltipdata = ToolTipData;
     const BASE_URL = import.meta.env.VITE_BASEURL;
     return (
-        <motion.div className="min-w-[4.6rem]  absolute z-50 dark:bg-secondary bottom-0 right-0 left-0 md:static md:justify-start justify-center items-center space-x-5 md:space-x-0  space-y-4 flex md:flex-col  md:py-12">
+        <motion.div className="min-w-[4.6rem]   absolute dark:b-secondary bottom-0 right-0 left-0 md:static md:justify-start justify-center items-center space-x-5 md:space-x-0  space-y-4  flex md:flex-col  md:py-12">
             <div className="relative md:flex hidden group cursor-pointer mb-5">
                 <img
                     loading="lazy"

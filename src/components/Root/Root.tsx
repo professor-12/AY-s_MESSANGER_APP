@@ -1,13 +1,11 @@
 import Tab from "../Tabs/Tab";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Sidebar from "../sideBar/Sidebar";
 import MessageTab from "../MessageTab/MessageTab";
 import { useNavigate, redirect } from "react-router-dom";
 
-const Root = ({setdarkmode,darkmode}:any) => {
-    const [tab, settab] = useState(true);
+const Root = ({ setdarkmode, darkmode, tabs, settab }: any) => {
     const navigate = useNavigate();
-
     useEffect(() => {
         if (!localStorage.getItem("darkmode")) {
             localStorage.setItem("darkmode", "true");
@@ -46,15 +44,15 @@ const Root = ({setdarkmode,darkmode}:any) => {
             text-slate-700
              bg-lightgray dark:bg-secondary"
                 >
-                    {tab && <Sidebar />}
-                    {tab && (
+                    {tabs && <Sidebar />}
+                    {tabs && (
                         <Tab
                             tab={settab}
                             setdarkmode={setdarkmode}
                             darkmode={darkmode}
                         />
                     )}
-                    {!tab && <MessageTab></MessageTab>}
+                    {!tabs && <MessageTab></MessageTab>}
                 </div>
             </div>
             <div id="portal"></div>

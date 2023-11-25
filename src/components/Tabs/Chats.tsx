@@ -18,7 +18,7 @@ const Chats = (props:any) => {
             exit="hidden"
             animate="visible"
             transition={{ type: "just"}}
-            className="space-y-3 overflow-y-auto"
+            className="space-y-3  overflow-y-auto"
         >
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl">Chats</h1>
@@ -27,7 +27,7 @@ const Chats = (props:any) => {
                         <li
                             key={i.tooltip}
                             onClick={() => {
-                                setSelected(optionTab[index]);
+                                setSelected(optionTab[index])
                             }}
                             className=" group hover:dark:bg-mutedcolor rounded-lg p-3 cursor-pointer"
                         >
