@@ -1,13 +1,16 @@
 import { motion } from "framer-motion";
 import { useState, FormEvent } from "react";
+import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 import { useSubmit, useNavigation, Link, Form } from "react-router-dom";
 import Loading from "../Loading/Loading";
 
-import HidePassword from "../../assets/svgs/HidePassword";
 const Signup = () => {
-    const navigate = useNavigation()
-    const submitting = navigate.state == "submitting"
-    console.log(submitting)
+    const navigate = useNavigation();
+    const [showpassword, setshowpassord] = useState({
+        Password: false,
+        cps: false,
+    });
+    const submitting = navigate.state == "submitting";
     const submit = useSubmit();
     const [email, setemail] = useState({ value: "", touched: false });
     const [name, setname] = useState({ value: "", touched: false });
@@ -54,11 +57,7 @@ const Signup = () => {
             }}
             className="w-full "
         >
-            {
-                submitting &&
-                <Loading loading="Submitting"/>
-
-            }
+            {submitting && <Loading loading="Submitting" />}
             <motion.div
                 animate={{ x: [-100, 0], opacity: [0, 1] }}
                 transition={{ type: "just" }}
@@ -132,7 +131,21 @@ const Signup = () => {
                             htmlFor=""
                         >
                             <span>Password</span>
-                            <HidePassword />
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    setshowpassord((prev) => ({
+                                        ...prev,
+                                        Password: !prev.Password,
+                                    }))
+                                }
+                            >
+                                {showpassword.Password ? (
+                                    <IoMdEye />
+                                ) : (
+                                    <IoMdEyeOff />
+                                )}
+                            </button>
                         </label>
                         <input
                             value={Password.value}
@@ -148,7 +161,7 @@ const Signup = () => {
                                     touched: true,
                                 }));
                             }}
-                            type="password"
+                            type={!showpassword.Password ? "password" : "text"}
                             placeholder="*********"
                             className={`border ${
                                 Passwordhaserror && "border-red-600"
@@ -167,9 +180,21 @@ const Signup = () => {
                             htmlFor=""
                         >
                             <span>Confirm Password</span>
-                            <span>
-                                <HidePassword />
-                            </span>
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    setshowpassord((prev) => ({
+                                        ...prev,
+                                        cps: !prev.cps,
+                                    }))
+                                }
+                            >
+                                {showpassword.cps ? (
+                                    <IoMdEye />
+                                ) : (
+                                    <IoMdEyeOff />
+                                )}
+                            </button>
                         </label>
                         <input
                             value={cPassword.value}
@@ -185,7 +210,7 @@ const Signup = () => {
                                     touched: true,
                                 }));
                             }}
-                            type="password"
+                            type={!showpassword.cps ? "password" : "text"}
                             placeholder="*********"
                             className={`border ${
                                 cpasswordhaserror && "border-red-600"
@@ -204,7 +229,7 @@ const Signup = () => {
                         whileTap={{ scale: 0.99 }}
                         className="bg-blue-500 p-3 disabled:bg-gray-500 disabled:cursor-not-allowed  rounded-xl text-white text-center focus:outline-none"
                     >
-                        {!submitting ? "Signup" : "Signing up" }
+                        {!submitting ? "Signup" : "Signing up"}
                     </motion.button>
                 </div>
             </motion.div>

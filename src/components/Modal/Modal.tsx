@@ -7,7 +7,7 @@ const Modal = (props: any) => {
                 <motion.div
                       exit={{opacity:0}}
                 onClick={() => props.onClick(false)}
-                className="absolute bg-slate-100 dark:bg-slate-700 inset-0 dark:bg-opacity-30 bg-opacity-10"
+                className="absolute bg-slate-200 dark:bg-slate-700  inset-0 dark:bg-opacity-30 bg-opacity-50 blur-2xl cursor-pointer"
             ></motion.div>
             <ModalContainer>{props.children}</ModalContainer>
         </div>,

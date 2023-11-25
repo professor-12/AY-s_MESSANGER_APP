@@ -3,7 +3,7 @@ import { useContextApi } from "../../store/contextApi/store";
 import {motion} from "framer-motion"
 import ChatLists from "./ChatList";
 
-const Chats = () => {
+const Chats = (props:any) => {
     const { setSelected } = useContextApi();
     const optionTab = ["addContact", "group"];
     const data = Data;
@@ -44,7 +44,7 @@ const Chats = () => {
                 </ul>
             </div>
             <div>
-                <ChatLists></ChatLists>
+                <ChatLists tab={props.tab}></ChatLists>
             </div>
         </motion.div>
     );

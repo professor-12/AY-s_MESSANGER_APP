@@ -11,9 +11,9 @@ const Tab = (props:any) => {
     let select_add_to_contact = isSelected === "addContact";
     const selectedsettings = isSelected === "settings"
     return (
-        <motion.div className=' className="h-full dark:border-[#57575785] bg-white overflow-y-auto  p-5 pt-6 border-r min-w-[24rem] dark:bg-primary'>
+        <motion.div className='h-full dark:border-[#57575785] bg-white overflow-y-auto  p-5 pt-6 border-r min-w-[24rem] dark:bg-primary'>
             <AnimatePresence mode="wait">
-                {selectedchat && <Chats></Chats>}
+                {selectedchat && <Chats tab={props.tab}></Chats>}
                 {selectedProfile && <Profile></Profile>}
                 {select_add_to_contact && <AddtoContact />}
                 {selectedsettings && <Settings setdarkmode={props.setdarkmode} darkmode={props.darkmode}></Settings>}

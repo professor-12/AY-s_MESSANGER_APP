@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { loader as ChatLoader } from "./components/MessageTab/Chat";
 import { Loader as AuthLoader } from "./components/Auth/Authen";
+import { useState } from "react";
 import Root from "./components/Root/Root";
 import MessageTab from "./components/MessageTab/MessageTab";
 import Chat from "./components/MessageTab/Chat";
@@ -8,9 +9,15 @@ import Auth from "./components/Auth/Authen";
 import { loader } from "./components/Root/Root";
 import Error from "./components/Error/Error";
 function App() {
+    const theme = localStorage.getItem("darkmode") == "true";
+
+    const [darkmode, setdarkmode] = useState(theme);
+
     const route = createBrowserRouter([
         {
-            element: <Root></Root>,
+            element: (
+                <Root darkmode={darkmode} setdarkmode={setdarkmode}></Root>
+            ),
             errorElement: <Error />,
             loader: loader,
             children: [
@@ -21,7 +28,7 @@ function App() {
                         {
                             index: true,
                             element: (
-                                <div className="flex justify-center h-screen items-center  flex-col space-y-3">
+                                <div className="flex justify-center  items-center  flex-col space-y-3">
                                     <img
                                         className="md:w-[24rem]"
                                         src="https://ac-messenger-p.web.app/start_messaging_img.bf5aacaf.svg"
@@ -54,9 +61,9 @@ function App() {
     ]);
 
     return (
-        <>
+        <div className={`${darkmode && "dark"}`}>
             <RouterProvider router={route}></RouterProvider>
-        </>
+        </div>
     );
 }
 

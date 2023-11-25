@@ -1,11 +1,13 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ExpandableCard from "../../UI/ExpandableCard";
 import Modal from "../Modal/Modal";
 import { AnimatePresence } from "framer-motion";
+import Loading from "../Loading/Loading";
 
 const AddtoCaontactList = ({ user }: any) => {
     const [contact, setcontact] = useState(false);
+    const [useralreadyexist, setUseralreadyexist] = useState(false);
     const createcontact = (contact: any) => {
         fetch("http://127.0.0.1:8000/contactcreation/", {
             method: "POST",
@@ -15,12 +17,38 @@ const AddtoCaontactList = ({ user }: any) => {
                     "Token " +
                     localStorage.getItem("usercredentialstokenACMESSANGER"),
             },
+
             body: JSON.stringify({ contact: contact }),
         })
-    }
+            .then((res) => {
+                return res.json();
+            })
+            .then((cl) => {
+                if (cl == "User is already your contact")
+                    setUseralreadyexist(true);
+            });
+        setcontact(false);
+    };
+
+    useEffect(() => {
+        const time = setTimeout(() => {
+            setUseralreadyexist(false);
+        }, 2000);
+
+        return () => {
+            clearTimeout(time);
+        };
+    }, [useralreadyexist]);
     return (
         <>
             <ExpandableCard>
+                <>
+                    <AnimatePresence>
+                        {useralreadyexist && (
+                            <Loading loading="User already your contact" />
+                        )}
+                    </AnimatePresence>
+                </>
                 <AnimatePresence>
                     {contact && (
                         <Modal onClick={setcontact}>

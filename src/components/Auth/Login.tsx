@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react";
 import { motion } from "framer-motion";
+import { IoMdEyeOff, IoMdEye } from "react-icons/io";
 import {
     Link,
     Form,
@@ -8,9 +9,9 @@ import {
     useNavigation,
 } from "react-router-dom";
 
-import HidePassword from "../../assets/svgs/HidePassword";
 import Loading from "../Loading/Loading";
 const Login = () => {
+    const [showpassword, setshowpassord] = useState(false);
     const submitting = useNavigation();
     const issubmitting = submitting.state == "submitting";
     const error = useActionData() as any;
@@ -36,8 +37,6 @@ const Login = () => {
             },
             { method: "post" }
         );
-        setname({ value: "", touched: false });
-        setpassword({ value: "", touched: false });
     };
     return (
         <Form className="w-full" onSubmit={(e) => handleSubmit(e)}>
@@ -45,7 +44,7 @@ const Login = () => {
             <motion.div
                 animate={{ x: [-100, 0], opacity: [0, 1] }}
                 transition={{ type: "just" }}
-                className="flex p-2 space-y-6 w-full flex-col justify-center items-center  "
+                className="flex p-2 space-y-5 w-full flex-col justify-center items-center  "
             >
                 <div className="text-center ">
                     <p className="text-3xl font-semibold ">ACMessenger</p>
@@ -94,7 +93,16 @@ const Login = () => {
                             htmlFor=""
                         >
                             <span>Password</span>
-                            <HidePassword />
+                            <button
+                                type="button"
+                                onClick={() => setshowpassord((prev) => !prev)}
+                            >
+                                {showpassword ? (
+                                    <IoMdEye></IoMdEye>
+                                ) : (
+                                    <IoMdEyeOff></IoMdEyeOff>
+                                )}
+                            </button>
                         </label>
                         <input
                             onChange={(e) => {
@@ -109,7 +117,7 @@ const Login = () => {
                                     touched: true,
                                 }));
                             }}
-                            type="text"
+                            type={showpassword ? "text" : "password"}
                             placeholder="*********"
                             className={`bg-transparent ${
                                 Passwordhaserror && "border-red-600"
@@ -119,7 +127,6 @@ const Login = () => {
                     </div>
 
                     <motion.button
-                        disabled={!formisvalid}
                         type="submit"
                         whileHover={{ scale: 1.01 }}
                         whileTap={{ scale: 0.99 }}

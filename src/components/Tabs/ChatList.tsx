@@ -1,7 +1,7 @@
 import ExpandableCard from "../../UI/ExpandableCard";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-const ChatLists = () => {
+const ChatLists = (props: any) => {
     interface User {
         displayname: string;
         user_profile: string;
@@ -49,25 +49,28 @@ const ChatLists = () => {
     }
     return Users.map((chat) => (
         <ExpandableCard>
-            <Link
-                to={`${chat.user_profile}`}
-                className="flex p-3  cursor-pointer items-start  space-x-6"
-                key={chat.id}
-            >
-                <div>
-                    <img
-                        className="h-[3.4rem] object-cover w-[3.4rem] rounded-full"
-                        src={import.meta.env.VITE_BASEURL + chat?.profilepics}
-                        alt="d"
-                    />
-                </div>
-                <div className="flex  flex-col">
-                    <h1 className="text-[1.4rem]">{chat?.displayname}</h1>
-                    <div className="flex font-medium text-gray-400/80 text-sm space-x-3">
-                        
+            <div onClick={props.tab(true)}>
+                <Link
+                    to={`${chat.user_profile}`}
+                    onClick={props.tab(false)}
+                    className="flex p-3  cursor-pointer items-start  space-x-6"
+                    key={chat.id}
+                >
+                    <div>
+                        <img
+                            className="h-[3.4rem] object-cover w-[3.4rem] rounded-full"
+                            src={
+                                import.meta.env.VITE_BASEURL + chat?.profilepics
+                            }
+                            alt="d"
+                        />
                     </div>
-                </div>
-            </Link>
+                    <div className="flex  flex-col">
+                        <h1 className="text-[1.4rem]">{chat?.displayname}</h1>
+                        <div className="flex font-medium text-gray-400/80 text-sm space-x-3"></div>
+                    </div>
+                </Link>
+            </div>
         </ExpandableCard>
     ));
 };

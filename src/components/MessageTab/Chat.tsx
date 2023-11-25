@@ -120,25 +120,37 @@ const Chat = () => {
             >
                 <ChatHeader />
                 {messages.length > 0 ? (
-                    <div className="max-h-[30rem] mt-[.5rem]  space-y-4   justify-end flex flex-col p-3 overflow-y-auto gap-2 dark:bg-secondary">
-                        {messages?.map((messages: any) => {
-                            return (
-                                <div>
-                                    <Messages
-                                        key={messages.id}
-                                        message={messages}
-                                    ></Messages>
-                                </div>
-                            );
-                        })}
+                    <div className="h-[80%]  overflow-auto">
+                        <div className="overflow-auto flex flex-col justify-end h-full">
+                            <div className="mt-[.5rem]  overflow-y-auto w-full items-end flex  space-y-4  flex-col p-3  gap-2 dark:b-secondary">
+                                {messages?.map((messages: any) => {
+                                    return (
+                                        
+                                            <Messages
+                                                key={messages.id}
+                                                message={messages}
+                                            ></Messages>
+                                       
+                                    );
+                                })}
+                            </div>
+                        </div>
                     </div>
                 ) : (
-                    <div className="absolute  lg:right-[40%]">
-                        <img className="w-[18rem]" src="/No chat.svg" alt="f" />
-                        <h1 className="text-2xl my-3">
-                            Your conversation is empty.
-                        </h1>
-                        <p className="text-slate-400">start chatting below</p>
+                    <div className="w-full h-full  flex justify-center items-center">
+                        <div className="">
+                            <img
+                                className="w-[18rem]"
+                                src="/No chat.svg"
+                                alt="f"
+                            />
+                            <h1 className="text-2xl my-3">
+                                Your conversation is empty.
+                            </h1>
+                            <p className="text-slate-400">
+                                start chatting below
+                            </p>
+                        </div>
                     </div>
                 )}
                 <form onSubmit={handlesubmit} className="pt-20 w-full">

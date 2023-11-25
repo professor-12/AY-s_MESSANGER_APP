@@ -12,7 +12,7 @@ import Loading from "../Loading/Loading";
 const Profile = () => {
     const { setprofile } = useContextApi();
     useEffect(() => {
-        var pusher = new Pusher("aa2f3d6f65bfcab9b2f4", {
+        var pusher = new Pusher("ceffb5697c2e0be737f8", {
             cluster: "mt1",
         });
 

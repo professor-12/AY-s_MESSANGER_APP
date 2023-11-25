@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { useContextApi } from "../../store/contextApi/store";
+import { AnimatePresence, motion } from "framer-motion";
 const Messages = ({ message }: any) => {
     const { friendprofile } = useContextApi();
     const style = message.reciever == friendprofile.user;
     const { profilepics } = friendprofile;
+    const [expandimage, setexpandImage] = useState(false);
 
     function convertToHHMM(timeString: any) {
         const [hours, minutes, seconds] = timeString?.split(":");
@@ -19,11 +22,10 @@ const Messages = ({ message }: any) => {
 
     const originalTime = message.time;
     const convertedTime = convertToHHMM(originalTime);
-    console.log(message.img);
     return (
         <>
-            <div className={`flex  ${style && "justify-end "} w-full`}>
-                <div className="text-black cursor-pointer   flex space-x-2  space-y-2">
+            <div className={`${style && "justify-end"} flex  w-full`}>
+                <div className="text-black cursor-pointer flex    space-x-2  space-y-2">
                     {!style && (
                         <img
                             src={
@@ -33,26 +35,31 @@ const Messages = ({ message }: any) => {
                             alt=""
                         />
                     )}
-                    <div>
+
+                
+                    <div className="space-y-2">
                         {message?.message.trim().length > 0 ? (
-                            <div
-                                className={` flex ${
+                            <p
+                                className={`md:max-w-[30rem]   p-2 px-3 ${
                                     style
-                                        ? "bg-blue-400  text-white rounded-br min-h-12  p-2 px-3 rounded-3xl"
-                                        : "rounded-bl min-h-12 aspect-auto  bg-white p-2 px-3 rounded-3xl"
+                                        ? "bg-blue-400  text-white rounded-br rounded-3xl"
+                                        : "rounded-bl   bg-white rounded-3xl"
                                 } `}
                             >
-                                <p>{message?.message}</p>
-                            </div>
+                                {message?.message}
+                            </p>
                         ) : (
-                            <div
-                                className={` flex 
-                                
-                                         text-white h-[20rem]  overflow-hidden p-1   rounded-3xl w-40 
-                                `}
+                            <motion.div
+                                className={` flex  
+                        
+                        text-white h-[20rem]  overflow-hidden p-1   rounded-3xl w-40 
+                        `}
                             >
                                 <img
-                                    className="rounded-3xl h-full w-full object-cover"
+                                    onClick={() =>
+                                        setexpandImage((prev) => !prev)
+                                    }
+                                    className="rounded-3xl max-w-[30rem]  max-h-[30rem] z-[1000000] h-full w-full object-cover"
                                     src={
                                         import.meta.env.VITE_BASEURL +
                                         "/" +
@@ -60,7 +67,43 @@ const Messages = ({ message }: any) => {
                                     }
                                     alt=""
                                 />
-                            </div>
+
+                                    
+                                <AnimatePresence>
+                                    {expandimage && (
+                                        <motion.img
+                                            animate={{
+                                                scale: [0, 1.001],
+                                                x: style  ? [-500] : 0,
+                                                y: style ? [0, -400] : [0,-400] ,
+                                            }}
+                                            exit={{
+                                                scale: 1,
+                                                x: 10,
+                                                y: 10,
+                                                opacity: 0,
+                                            }}
+                                            onClick={() =>
+                                                setexpandImage((prev) => !prev)
+                                            }
+                                            className="rounded-3xl max-w-[30rem] absolute  max-h-[30rem] z-[1000000] h-full w-full object-cover"
+                                            src={
+                                                import.meta.env.VITE_BASEURL +
+                                                "/" +
+                                                message.img
+                                            }
+                                            alt=""
+                                        />
+                                    )}
+                                </AnimatePresence>
+                                {expandimage && (
+                                    <motion.div
+                                        onClick={() => setexpandImage(false)}
+                                        exit={{ opacity: 0 }}
+                                        className="absolute bg-slate-200 dark:bg-slate-700  inset-0 dark:bg-opacity-30 bg-opacity-50 cursor-pointer"
+                                    ></motion.div>
+                                )}
+                            </motion.div>
                         )}
                         <div
                             className={`dark:text-slate-200 text-xs  ${
