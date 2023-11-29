@@ -2,7 +2,6 @@ import ExpandableCard from "../../UI/ExpandableCard";
 import { useContextApi } from "../../store/contextApi/store";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 const ChatHeader = ({ tab }:any) => {
-    const { setSelected } = useContextApi();
     const { friendprofile } = useContextApi();
     const { profilepics, displayname } = friendprofile;
 

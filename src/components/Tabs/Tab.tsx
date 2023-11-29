@@ -16,7 +16,7 @@ const Tab = (props: any) => {
     return (
         <motion.div className="h-full dark:border-[#57575785] bg-white overflow-y-auto  p-5 pt-6 border-r min-w-[24rem] dark:bg-primary">
             <AnimatePresence mode="wait">
-                {selectedchat && <Chats tab={props.tab}></Chats>}
+                {selectedchat && <Chats></Chats>}
                 {selectedProfile && <Profile></Profile>}
                 {select_add_to_contact && <AddtoContact />}
                 {selectedsettings && (
