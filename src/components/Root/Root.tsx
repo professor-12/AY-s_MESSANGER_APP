@@ -2,7 +2,7 @@ import Tab from "../Tabs/Tab";
 import { useEffect } from "react";
 import Sidebar from "../sideBar/Sidebar";
 import MessageTab from "../MessageTab/MessageTab";
-import { useNavigate, redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Root = ({ setdarkmode, darkmode, tabs, settab }: any) => {
     const navigate = useNavigate();
@@ -12,8 +12,7 @@ const Root = ({ setdarkmode, darkmode, tabs, settab }: any) => {
         }
         if (
             localStorage.getItem("usercredentialstokenACMESSANGER") ==
-                undefined ||
-            null
+                undefined || null
         ) {
             navigate("/auth");
             return;
@@ -61,21 +60,3 @@ const Root = ({ setdarkmode, darkmode, tabs, settab }: any) => {
 };
 
 export default Root;
-
-export const loader = async () => {
-    if (!localStorage.getItem("usercredentialstokenACMESSANGER")) {
-        return null;
-    }
-    const response = await fetch(import.meta.env.VITE_BASEURL + `/profile`, {
-        method: "GET",
-        headers: {
-            Authorization:
-                "Token " +
-                localStorage.getItem("usercredentialstokenACMESSANGER"),
-        },
-    });
-    if (!response.ok) {
-        return redirect("/auth");
-    }
-    return response;
-};

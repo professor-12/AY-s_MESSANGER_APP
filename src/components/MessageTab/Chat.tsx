@@ -3,18 +3,21 @@ import send from "../../assets/svgs/Send.svg";
 import File from "../../assets/svgs/File.svg";
 import { useState, useEffect, FormEvent } from "react";
 import Messages from "./Messages";
-import { useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData, useNavigate , useNavigation } from "react-router-dom";
 import { useContextApi } from "../../store/contextApi/store";
 import Pusher from "pusher-js";
 import { AnimatePresence } from "framer-motion";
 import { useRef, RefObject } from "react";
 import Modal from "../Modal/Modal";
+import ReactLoadingSpinner from "../ReactLoading";
 
-const Chat = () => {
+const Chat = ({ tab }: any) => {
+    const navigation = useNavigation()
     const data: any = useLoaderData();
+    const navigate = useNavigate();
     const blob = new Blob([""], { type: "file" });
     const { setfriend_profile, friendprofile } = useContextApi();
-    const [url, seturl] = useState(URL.createObjectURL(blob));
+    const [url, seturl] = useState(URL.createObjectURL(blob))
     const message = data.messageinfo;
     const [sentmessage, setsentmessage] = useState("");
     const [messages, setmessages] = useState([]) as Array<any>;
@@ -34,9 +37,13 @@ const Chat = () => {
         });
     }, [data]);
 
+    useEffect(() => {
+        tab(true)
+    })
+
     const fileref = useRef() as RefObject<HTMLInputElement>;
     const formData = new FormData();
-    const upload = () => {
+    const upload = async () => {
         formData.append("reciever", friendprfofile.user);
         if (
             fileref.current &&
@@ -46,7 +53,7 @@ const Chat = () => {
             formData.append("img", fileref.current.files[0]);
         }
 
-        fetch("http://127.0.0.1:8000/chat", {
+        const res = await fetch("http://127.0.0.1:8000/chat", {
             method: "POST",
             headers: {
                 Authorization:
@@ -55,12 +62,15 @@ const Chat = () => {
             },
             body: formData,
         });
+        if (res.status === 403) {
+            navigate("/auth");
+        }
         console.log(fileref?.current?.value);
         setSendImg(false);
     };
 
-    const sendmessage = () => {
-        fetch("http://127.0.0.1:8000/chat", {
+    const sendmessage = async () => {
+        const res = await fetch("http://127.0.0.1:8000/chat", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -73,6 +83,9 @@ const Chat = () => {
                 message: sentmessage,
             }),
         });
+        if (res.status === 403) {
+            navigate("/auth");
+        }
     };
     const handlesubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -87,6 +100,20 @@ const Chat = () => {
     }, [messages, valid, friendprfofile]);
 
     setfriend_profile(friendprfofile);
+
+
+    if (navigation.state == "loading") {
+        return (
+            <ReactLoadingSpinner
+                type="cubes"
+                color="blue"
+                width="20%"
+                height="12%"
+            >
+                Fetching Contacts
+            </ReactLoadingSpinner>
+        );
+    }
 
     return (
         <>
@@ -118,19 +145,17 @@ const Chat = () => {
             <div
                 className={`relative  py-20  h-screen bg-lightgray dark:bg-secondary`}
             >
-                <ChatHeader />
+                <ChatHeader tab={tab} />
                 {messages.length > 0 ? (
                     <div className="h-[80%]  overflow-auto">
                         <div className="overflow-auto flex flex-col justify-end h-full">
                             <div className="mt-[.5rem]  overflow-y-auto w-full items-end flex  space-y-4  flex-col p-3  gap-2 dark:b-secondary">
                                 {messages?.map((messages: any) => {
                                     return (
-                                        
-                                            <Messages
-                                                key={messages.id}
-                                                message={messages}
-                                            ></Messages>
-                                       
+                                        <Messages
+                                            key={messages.id}
+                                            message={messages}
+                                        ></Messages>
                                     );
                                 })}
                             </div>
@@ -201,6 +226,9 @@ export const loader = async ({ params }: any) => {
         },
         body: JSON.stringify(BODY),
     });
+    if (response.status == 403) {
+        return redirect("/auth");
+    }
     if (!response.ok) return null;
     return response;
 };

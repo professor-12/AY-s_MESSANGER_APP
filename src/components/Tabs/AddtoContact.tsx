@@ -4,9 +4,10 @@ import arrow from "../../assets/svgs/Arrow.svg";
 import { useContextApi } from "../../store/contextApi/store";
 import ExpandableCard from "../../UI/ExpandableCard";
 import { useState, useEffect } from "react";
+import ReactLoadingSpinner from "../ReactLoading";
 const AddtoContact = () => {
     const BASE_URL = import.meta.env.VITE_BASEURL;
-
+    const [loading, setloading] = useState(true);
     interface Profile {
         displayname: string;
         email: string;
@@ -25,10 +26,12 @@ const AddtoContact = () => {
         const data = fetchUsers();
         data.then((e) => {
             setUsers(e);
+            setloading(false)
         });
     }, []);
 
     const { setSelected } = useContextApi();
+
     return (
         <motion.div
             variants={{
@@ -67,11 +70,21 @@ const AddtoContact = () => {
                     placeholder="Search"
                 />
             </form>
-            {Users.map((user) => (
-                <AddtoCaontactList key={user.id} user={user} />
-            ))}
+            {loading ? (
+                <ReactLoadingSpinner
+                    type="cylon"
+                    color="blue"
+                    width="20%"
+                    height="12%"
+                >
+                    Fetching Contacts
+                </ReactLoadingSpinner>
+            ) : (
+                Users.map((user) => (
+                    <AddtoCaontactList key={user.id} user={user} />
+                ))
+            )}
         </motion.div>
     );
 };
-
 export default AddtoContact;

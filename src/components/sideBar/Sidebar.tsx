@@ -1,14 +1,14 @@
 import { ToolTipData } from "../../Data/SidebarData";
 import { useContextApi } from "../../store/contextApi/store";
 import { motion } from "framer-motion";
-import { useLoaderData } from "react-router-dom";
 import { useEffect } from "react";
 const Sidebar = () => {
-    const data: any = useLoaderData();
     const { setprofile } = useContextApi();
     useEffect(() => {
-        setprofile(data);
+        const data = localStorage.getItem("userprofile") as any;
+        setprofile(JSON.parse(data));
     }, []);
+
     const { setSelected, isSelected, profile } = useContextApi();
     const tooltipdata = ToolTipData;
     const BASE_URL = import.meta.env.VITE_BASEURL;

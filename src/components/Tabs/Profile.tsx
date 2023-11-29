@@ -15,10 +15,10 @@ const Profile = () => {
         var pusher = new Pusher("ceffb5697c2e0be737f8", {
             cluster: "mt1",
         });
-
         var channel = pusher.subscribe("chat");
         channel.bind("profile", function (data: any) {
             setprofile(data);
+            localStorage.setItem("userprofile", JSON.stringify(data));
         });
     }, []);
     const fileref = useRef() as RefObject<HTMLInputElement>;
@@ -35,7 +35,7 @@ const Profile = () => {
         ) {
             formData.append("profilepics", fileref.current.files[0]);
         }
-         setisubmitting(true);
+        setisubmitting(true);
         fetch("http://127.0.0.1:8000/editprofile", {
             method: "PUT",
             headers: {
@@ -45,7 +45,7 @@ const Profile = () => {
             },
             body: formData,
         });
-         setisubmitting(false);
+        setisubmitting(false);
     };
     const [displayname, setdisplayname] = useState(profile.displayname);
     const [Bio, setBio] = useState(profile.bio);

@@ -5,6 +5,8 @@ import Chats from "./Chats";
 import { motion, AnimatePresence } from "framer-motion";
 import { useContextApi } from "../../store/contextApi/store";
 import Sidebar from "../sideBar/Sidebar";
+
+
 const Tab = (props: any) => {
     const { isSelected } = useContextApi();
     const selectedchat = isSelected === "Chats";

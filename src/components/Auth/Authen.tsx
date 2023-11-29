@@ -1,6 +1,6 @@
 import Signup from "./Signup";
 import { motion } from "framer-motion";
-import {  redirect, useSearchParams } from "react-router-dom";
+import { redirect, useSearchParams } from "react-router-dom";
 import Login from "./Login";
 const Auth = () => {
     const [params] = useSearchParams();
@@ -28,46 +28,43 @@ export const Loader = async ({ request }: any) => {
         username: data.get("name"),
         password: data.get("password"),
     };
-
-    if (mode == "Login") {
+    if (mode == "signup") {
         const res = await fetch("http://127.0.0.1:8000/" + mode + "/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(Login),
+            body: JSON.stringify(Data),
         });
-
+        if (!res.ok) {
+            return res;
+        }
+        const user = await res.json();
+        localStorage.setItem("usercredentialstokenACMESSANGER", user.token);
+        const userProfile = JSON.stringify(user.profile);
+        localStorage.setItem("userprofile", userProfile);
+        return redirect("/");
+    }
+        const res = await fetch("http://127.0.0.1:8000/" + "login" + "/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(Login),
+        })
         switch (res.status) {
             case 404:
                 return res;
             case 200:
-                const constt = await res.json();
-                console.log(constt);
-                localStorage.setItem("user", constt.user);
+                const user = await res.json();
                 localStorage.setItem(
                     "usercredentialstokenACMESSANGER",
-                    constt.token
+                    user.token
                 );
+                const userProfile = JSON.stringify(user.profile);
+                localStorage.setItem("userprofile", userProfile);
                 return redirect("/");
-            default:
+            case 500:
                 return redirect("/auth");
         }
-
-    
-
     }
-    const res = await fetch("http://127.0.0.1:8000/" + mode + "/", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(Data),
-    });
-    if (!res.ok) {
-        return res;
-    }
-    const constt = await res.json();
-    localStorage.setItem("usercredentialstokenACMESSANGER", constt.token);
-    return redirect("/");
-};

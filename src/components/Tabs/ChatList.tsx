@@ -1,15 +1,11 @@
 import ExpandableCard from "../../UI/ExpandableCard";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-const ChatLists = (props: any) => {
-    interface User {
-        displayname: string;
-        user_profile: string;
-        date_joined: string;
-        email: string;
-        profilepics: string;
-        id: number;
-    }
+import { User } from "../../../Interfaces/Interfaces";
+import { Link, useNavigate } from "react-router-dom";
+import ReactLoadingSpinner from "../ReactLoading";
+const ChatLists = () => {
+    const navigate = useNavigate();
+    const [loading, setloading] = useState(true);
     const [contacts, setcontacts] = useState<User[]>([]);
     const fetchData = async () => {
         const data = await fetch("http://127.0.0.1:8000/contact/", {
@@ -21,9 +17,14 @@ const ChatLists = (props: any) => {
                     localStorage.getItem("usercredentialstokenACMESSANGER"),
             },
         });
+        if (data.status === 403) {
+            navigate("/auth");
+        }
         const res = await data.json();
-        setcontacts([...res]);
+        setcontacts(res);
+        setloading(false)
     };
+    
     useEffect(() => {
         if (
             localStorage.getItem("usercredentialstokenACMESSANGER") ==
@@ -35,9 +36,12 @@ const ChatLists = (props: any) => {
         fetchData();
     }, []);
     const Users: Array<User> = contacts;
+    if (loading) {
+        return <ReactLoadingSpinner type="spin" color="blue" width="10%" height="12%">Fetching Chats</ReactLoadingSpinner>;
+    }
     if (Users.length == 0) {
         return (
-            <div className="bg-secondary bg-blend-saturation p-3  rounded-xl ">
+            <div className="bg-secondary  p-3  rounded-xl ">
                 <h1 className="text-slate-400 font-semibold text-lg">
                     You don't have any friend yet.
                 </h1>
@@ -47,14 +51,15 @@ const ChatLists = (props: any) => {
             </div>
         );
     }
+
+    
+
     return Users.map((chat) => (
-        <ExpandableCard>
-            <div onClick={props.tab(true)}>
+        <ExpandableCard key={chat.id}>
+            <div>
                 <Link
                     to={`${chat.user_profile}`}
-                    onClick={props.tab(false)}
                     className="flex p-3  cursor-pointer items-start  space-x-6"
-                    key={chat.id}
                 >
                     <div>
                         <img
@@ -66,7 +71,8 @@ const ChatLists = (props: any) => {
                         />
                     </div>
                     <div className="flex  flex-col">
-                        <h1 className="text-[1.4rem]">{chat?.displayname}</h1>
+                        <h1 className="text-[1.2rem]">{chat?.displayname}</h1>
+                        <p>{chat?.date_joined}</p>
                         <div className="flex font-medium text-gray-400/80 text-sm space-x-3"></div>
                     </div>
                 </Link>

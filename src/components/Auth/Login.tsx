@@ -15,7 +15,6 @@ const Login = () => {
     const submitting = useNavigation();
     const issubmitting = submitting.state == "submitting";
     const error = useActionData() as any;
-    console.log(error);
     const submit = useSubmit();
     const [name, setname] = useState({ value: "", touched: false });
     const [Password, setpassword] = useState({ value: "", touched: false });

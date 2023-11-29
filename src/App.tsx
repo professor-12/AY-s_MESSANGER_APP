@@ -6,11 +6,12 @@ import Root from "./components/Root/Root";
 import MessageTab from "./components/MessageTab/MessageTab";
 import Chat from "./components/MessageTab/Chat";
 import Auth from "./components/Auth/Authen";
-import { loader } from "./components/Root/Root";
+import Home from "./components/MessageTab/Home";
 function App() {
     const theme = localStorage.getItem("darkmode") == "true";
-    const [tabs, settab] = useState(true);
+    const [tabs, settab] = useState(true)
     const [darkmode, setdarkmode] = useState(theme);
+
 
     const route = createBrowserRouter([
         {
@@ -22,38 +23,20 @@ function App() {
                     setdarkmode={setdarkmode}
                 ></Root>
             ),
-            loader: loader,
             children: [
                 {
                     path: "",
-                    loader: ChatLoader,
                     element: <MessageTab></MessageTab>,
                     children: [
                         {
                             index: true,
-                            element: (
-                                <div>
-                                    <div className="md:flex hidden justify-center  items-center  flex-col space-y-3">
-                                        <img
-                                            className="md:w-[24rem]"
-                                            src="https://ac-messenger-p.web.app/start_messaging_img.bf5aacaf.svg"
-                                            alt=""
-                                        />
-                                        <h1 className="text-xl">
-                                            Start Messaging with ACMessenger
-                                        </h1>
-                                        <p>
-                                            Select a chat in your inbox to start
-                                            messaging.
-                                        </p>
-                                    </div>
-                                </div>
-                            ),
+                            element: <Home/>
+                            
                         },
                         {
                             path: ":id",
                             loader: ChatLoader,
-                            element: <Chat></Chat>,
+                            element: <Chat tab={settab}></Chat>,
                         },
                     ],
                 },
@@ -63,6 +46,7 @@ function App() {
             path: "auth",
             element: <Auth />,
             action: AuthLoader,
+            id: "action",
         },
     ]);
 
