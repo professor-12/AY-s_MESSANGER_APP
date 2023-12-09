@@ -1,30 +1,10 @@
-import {
-    Dispatch,
-    SetStateAction,
-    createContext,
-    useContext,
-    useState,
-} from "react";
+import { createContext, useContext, useState } from "react";
 
-interface Profile {
-    profilepics: string;
-    email: string;
-    bio: string;
-    location: string;
-    displayname: string;
-    user: String;
-    user_profile: string;
-}
-interface NavigatingTabs {
-    isSelected: string;
-    setSelected: Dispatch<SetStateAction<string>>;
-    profile: Profile;
-    setprofile: Dispatch<SetStateAction<Profile>>;
-    friendprofile: Profile;
-    setfriend_profile: Dispatch<SetStateAction<Profile>>;
-}
+import { Profile, NavigatingTabs } from "../../../Interfaces/Interfaces";
 
 const initialValue: NavigatingTabs = {
+    tab: true,
+    settab: () => {},
     isSelected: "Chats",
     setSelected: () => {},
     profile: {
@@ -57,6 +37,7 @@ export const useContextApi = () => {
 };
 
 const StoreProvider = (props: any) => {
+    const [tab, settab] = useState(false);
     const [isSelected, setSelected] = useState("Chats");
     const [friendprofile, setfriend_profile] = useState<Profile>({
         profilepics: "",
@@ -86,6 +67,8 @@ const StoreProvider = (props: any) => {
                 setprofile,
                 friendprofile,
                 setfriend_profile,
+                tab,
+                settab,
             }}
         >
             {props.children}

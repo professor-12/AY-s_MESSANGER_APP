@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { User } from "../../../Interfaces/Interfaces";
 import { Link, useNavigate } from "react-router-dom";
 import ReactLoadingSpinner from "../ReactLoading";
+import { useContextApi } from "../../store/contextApi/store";
 const ChatLists = () => {
+    const { settab } = useContextApi();
     const navigate = useNavigate();
     const [loading, setloading] = useState(true);
     const [contacts, setcontacts] = useState<User[]>([]);
@@ -22,9 +24,9 @@ const ChatLists = () => {
         }
         const res = await data.json();
         setcontacts(res);
-        setloading(false)
+        setloading(false);
     };
-    
+
     useEffect(() => {
         if (
             localStorage.getItem("usercredentialstokenACMESSANGER") ==
@@ -35,9 +37,19 @@ const ChatLists = () => {
         }
         fetchData();
     }, []);
+
     const Users: Array<User> = contacts;
     if (loading) {
-        return <ReactLoadingSpinner type="spin" color="blue" width="10%" height="12%">Fetching Chats</ReactLoadingSpinner>;
+        return (
+            <ReactLoadingSpinner
+                type="spin"
+                color="blue"
+                width="10%"
+                height="12%"
+            >
+                Fetching Chats
+            </ReactLoadingSpinner>
+        );
     }
     if (Users.length == 0) {
         return (
@@ -52,12 +64,11 @@ const ChatLists = () => {
         );
     }
 
-    
-
     return Users.map((chat) => (
         <ExpandableCard key={chat.id}>
             <div>
                 <Link
+                    onClick={() => settab(false)}
                     to={`${chat.user_profile}`}
                     className="flex p-3  cursor-pointer items-start  space-x-6"
                 >

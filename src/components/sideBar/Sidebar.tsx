@@ -13,7 +13,7 @@ const Sidebar = () => {
     const tooltipdata = ToolTipData;
     const BASE_URL = import.meta.env.VITE_BASEURL;
     return (
-        <motion.div className="min-w-[4.6rem]   absolute dark:b-secondary bottom-0 right-0 left-0 md:static md:justify-start justify-center items-center space-x-5 md:space-x-0  space-y-4  flex md:flex-col  md:py-12">
+        <motion.div className="min-w-[4.6rem] pb-3 md:pb-0   absolute dark:bg-secondary bottom-0 right-0 left-0 md:static md:justify-start justify-center items-center space-x-5 md:space-x-0  space-y-4  flex md:flex-col  md:py-12">
             <div className="relative md:flex hidden group cursor-pointer mb-5">
                 <img
                     loading="lazy"
@@ -38,7 +38,7 @@ const Sidebar = () => {
                     onClick={() => {
                         setSelected(tooltip?.tooltip);
                     }}
-                    className={`relative group cursor-pointer hover:dark:bg-[#3b3b5f] hover:bg-mutedgray rounded-lg p-3 ${
+                    className={`relative group cursor-pointer  hover:dark:bg-[#3b3b5f] hover:bg-mutedgray rounded-lg p-3 ${
                         isSelected === tooltip.tooltip &&
                         "dark:bg-[#3b3b5f] bg-mutedgray"
                     } `}
@@ -47,7 +47,7 @@ const Sidebar = () => {
                         {tooltip?.img}
                     </div>
                     <div
-                        className={`absolute  md:-left-3 md:w-1 rounded md:top-[.3rem] bg-[#79ad9e] md:h-[80%] h-[4px] left-2 -bottom-2 w-[80%] ${
+                        className={`absolute  md:-left-3 md:w-1  rounded md:top-[.3rem] bg-[#79ad9e] md:h-[80%] h-[4px] left-1 -bottom-2 w-[80%] ${
                             isSelected === tooltip?.tooltip ? "flex" : "hidden"
                         }`}
                     ></div>

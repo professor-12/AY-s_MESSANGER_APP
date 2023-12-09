@@ -9,19 +9,11 @@ import Auth from "./components/Auth/Authen";
 import Home from "./components/MessageTab/Home";
 function App() {
     const theme = localStorage.getItem("darkmode") == "true";
-    const [tabs, settab] = useState(true)
     const [darkmode, setdarkmode] = useState(theme);
-
-
     const route = createBrowserRouter([
         {
             element: (
-                <Root
-                    darkmode={darkmode}
-                    tabs={tabs}
-                    settab={settab}
-                    setdarkmode={setdarkmode}
-                ></Root>
+                <Root darkmode={darkmode} setdarkmode={setdarkmode}></Root>
             ),
             children: [
                 {
@@ -30,13 +22,12 @@ function App() {
                     children: [
                         {
                             index: true,
-                            element: <Home/>
-                            
+                            element: <Home />,
                         },
                         {
                             path: ":id",
                             loader: ChatLoader,
-                            element: <Chat tab={settab}></Chat>,
+                            element: <Chat></Chat>,
                         },
                     ],
                 },

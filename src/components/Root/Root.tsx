@@ -4,15 +4,18 @@ import Sidebar from "../sideBar/Sidebar";
 import MessageTab from "../MessageTab/MessageTab";
 import { useNavigate } from "react-router-dom";
 
-const Root = ({ setdarkmode, darkmode, tabs, settab }: any) => {
+import { useContextApi } from "../../store/contextApi/store";
+const Root = ({ setdarkmode, darkmode }: any) => {
+    const { tab } = useContextApi();
     const navigate = useNavigate();
     useEffect(() => {
-        if (!localStorage.getItem("darkmode")) {
+        if (!localStorage.getItem("darkmode"))
             localStorage.setItem("darkmode", "true");
-        }
+
         if (
             localStorage.getItem("usercredentialstokenACMESSANGER") ==
-                undefined || null
+                undefined ||
+            null
         ) {
             navigate("/auth");
             return;
@@ -31,11 +34,7 @@ const Root = ({ setdarkmode, darkmode, tabs, settab }: any) => {
              bg-lightgray dark:bg-secondary"
                 >
                     <Sidebar />
-                    <Tab
-                        tab={settab}
-                        setdarkmode={setdarkmode}
-                        darkmode={darkmode}
-                    />
+                    <Tab setdarkmode={setdarkmode} darkmode={darkmode} />
                     <MessageTab></MessageTab>
                 </div>
                 <div
@@ -43,15 +42,11 @@ const Root = ({ setdarkmode, darkmode, tabs, settab }: any) => {
             text-slate-700
              bg-lightgray dark:bg-secondary"
                 >
-                    {tabs && <Sidebar />}
-                    {tabs && (
-                        <Tab
-                            tab={settab}
-                            setdarkmode={setdarkmode}
-                            darkmode={darkmode}
-                        />
+                    {tab && <Sidebar />}
+                    {tab && (
+                        <Tab setdarkmode={setdarkmode} darkmode={darkmode} />
                     )}
-                    {!tabs && <MessageTab></MessageTab>}
+                    {!tab && <MessageTab></MessageTab>}
                 </div>
             </div>
             <div id="portal"></div>

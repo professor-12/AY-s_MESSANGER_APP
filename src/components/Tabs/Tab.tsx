@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useContextApi } from "../../store/contextApi/store";
 import Sidebar from "../sideBar/Sidebar";
 
-
 const Tab = (props: any) => {
     const { isSelected } = useContextApi();
     const selectedchat = isSelected === "Chats";
@@ -14,7 +13,7 @@ const Tab = (props: any) => {
     let select_add_to_contact = isSelected === "addContact";
     const selectedsettings = isSelected === "settings";
     return (
-        <motion.div className="h-full dark:border-[#57575785] bg-white overflow-y-auto  p-5 pt-6 border-r min-w-[24rem] dark:bg-primary">
+        <motion.div className="h-full  dark:border-[#57575785]  overflow-y-auto  p-5 pt-6 md:border-r md:min-w-[24rem] bg-white  dark:bg-primary">
             <AnimatePresence mode="wait">
                 {selectedchat && <Chats></Chats>}
                 {selectedProfile && <Profile></Profile>}

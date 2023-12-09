@@ -9,7 +9,8 @@ import Pusher from "pusher-js";
 import { FormEvent, useEffect } from "react";
 import { useState, useRef, RefObject } from "react";
 import Loading from "../Loading/Loading";
-const Profile = () => {
+
+const Profile = () =>  {
     const { setprofile } = useContextApi();
     useEffect(() => {
         var pusher = new Pusher("ceffb5697c2e0be737f8", {
@@ -18,7 +19,7 @@ const Profile = () => {
         var channel = pusher.subscribe("chat");
         channel.bind("profile", function (data: any) {
             setprofile(data);
-            localStorage.setItem("userprofile", JSON.stringify(data));
+            localStorage.setItem("userprofile", JSON.stringify(data))
         });
     }, []);
     const fileref = useRef() as RefObject<HTMLInputElement>;

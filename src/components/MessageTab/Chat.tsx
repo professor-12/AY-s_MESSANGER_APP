@@ -3,7 +3,12 @@ import send from "../../assets/svgs/Send.svg";
 import File from "../../assets/svgs/File.svg";
 import { useState, useEffect, FormEvent } from "react";
 import Messages from "./Messages";
-import { redirect, useLoaderData, useNavigate , useNavigation } from "react-router-dom";
+import {
+    redirect,
+    useLoaderData,
+    useNavigate,
+    useNavigation,
+} from "react-router-dom";
 import { useContextApi } from "../../store/contextApi/store";
 import Pusher from "pusher-js";
 import { AnimatePresence } from "framer-motion";
@@ -11,13 +16,13 @@ import { useRef, RefObject } from "react";
 import Modal from "../Modal/Modal";
 import ReactLoadingSpinner from "../ReactLoading";
 
-const Chat = ({ tab }: any) => {
-    const navigation = useNavigation()
+const Chat = () => {
+    const navigation = useNavigation();
     const data: any = useLoaderData();
     const navigate = useNavigate();
     const blob = new Blob([""], { type: "file" });
     const { setfriend_profile, friendprofile } = useContextApi();
-    const [url, seturl] = useState(URL.createObjectURL(blob))
+    const [url, seturl] = useState(URL.createObjectURL(blob));
     const message = data.messageinfo;
     const [sentmessage, setsentmessage] = useState("");
     const [messages, setmessages] = useState([]) as Array<any>;
@@ -26,8 +31,6 @@ const Chat = ({ tab }: any) => {
 
     useEffect(() => {
         setmessages(message);
-        Pusher.logToConsole = true;
-
         var pusher = new Pusher("ceffb5697c2e0be737f8", {
             cluster: "mt1",
         });
@@ -36,11 +39,6 @@ const Chat = ({ tab }: any) => {
             setmessages(data);
         });
     }, [data]);
-
-    useEffect(() => {
-        tab(true)
-    })
-
     const fileref = useRef() as RefObject<HTMLInputElement>;
     const formData = new FormData();
     const upload = async () => {
@@ -65,7 +63,6 @@ const Chat = ({ tab }: any) => {
         if (res.status === 403) {
             navigate("/auth");
         }
-        console.log(fileref?.current?.value);
         setSendImg(false);
     };
 
@@ -100,7 +97,6 @@ const Chat = ({ tab }: any) => {
     }, [messages, valid, friendprfofile]);
 
     setfriend_profile(friendprfofile);
-
 
     if (navigation.state == "loading") {
         return (
@@ -145,7 +141,7 @@ const Chat = ({ tab }: any) => {
             <div
                 className={`relative  py-20  h-screen bg-lightgray dark:bg-secondary`}
             >
-                <ChatHeader tab={tab} />
+                <ChatHeader  />
                 {messages.length > 0 ? (
                     <div className="h-[80%]  overflow-auto">
                         <div className="overflow-auto flex flex-col justify-end h-full">
