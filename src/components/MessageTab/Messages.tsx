@@ -6,7 +6,6 @@ const Messages = ({ message }: any) => {
     const style = message.reciever == friendprofile.user;
     const { profilepics } = friendprofile;
     const [expandimage, setexpandImage] = useState(false);
-
     function convertToHHMM(timeString: any) {
         const [hours, minutes, seconds] = timeString?.split(":");
         const formattedTime = new Date(
@@ -36,7 +35,6 @@ const Messages = ({ message }: any) => {
                         />
                     )}
 
-                
                     <div className="space-y-2">
                         {message?.message.trim().length > 0 ? (
                             <p
@@ -68,41 +66,40 @@ const Messages = ({ message }: any) => {
                                     alt=""
                                 />
 
-                                    
                                 <AnimatePresence>
                                     {expandimage && (
-                                        <motion.img
-                                            animate={{
-                                                scale: [0, 1.001],
-                                                x: style  ? [-500] : 0,
-                                                y: style ? [0, -400] : [0,-400] ,
-                                            }}
-                                            exit={{
-                                                scale: 1,
-                                                x: 10,
-                                                y: 10,
-                                                opacity: 0,
-                                            }}
+                                        <motion.div
+                                            exit={{ opacity: 0 }}
+                                            className="fixed flex items-center justify-center z-[10000000]  inset-0  bg-black bg-opacity-40"
                                             onClick={() =>
-                                                setexpandImage((prev) => !prev)
+                                                setexpandImage(false)
                                             }
-                                            className="rounded-3xl max-w-[30rem] absolute  max-h-[30rem] z-[1000000] h-full w-full object-cover"
-                                            src={
-                                                import.meta.env.VITE_BASEURL +
-                                                "/" +
-                                                message.img
-                                            }
-                                            alt=""
-                                        />
+                                        >
+                                            <motion.img
+                                                animate={{ y: [0, -50] }}
+                                                exit={{
+                                                    scale: 1,
+                                                    x: 10,
+                                                    y: 10,
+                                                    opacity: 0,
+                                                }}
+                                                onClick={() =>
+                                                    setexpandImage(
+                                                        (prev) => !prev
+                                                    )
+                                                }
+                                                className="md:w-[25rem] w-[18rem]  z-[10000000] rounded-lg"
+                                                src={
+                                                    import.meta.env
+                                                        .VITE_BASEURL +
+                                                    "/" +
+                                                    message.img
+                                                }
+                                                alt=""
+                                            />
+                                        </motion.div>
                                     )}
                                 </AnimatePresence>
-                                {expandimage && (
-                                    <motion.div
-                                        onClick={() => setexpandImage(false)}
-                                        exit={{ opacity: 0 }}
-                                        className="absolute bg-slate-200 dark:bg-slate-700  inset-0 dark:bg-opacity-30 bg-opacity-50 cursor-pointer"
-                                    ></motion.div>
-                                )}
                             </motion.div>
                         )}
                         <div

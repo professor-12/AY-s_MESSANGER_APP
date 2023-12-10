@@ -9,14 +9,17 @@ import {
     useNavigate,
     useNavigation,
 } from "react-router-dom";
+import ReactLoading from "react-loading";
 import { useContextApi } from "../../store/contextApi/store";
 import Pusher from "pusher-js";
 import { AnimatePresence } from "framer-motion";
 import { useRef, RefObject } from "react";
 import Modal from "../Modal/Modal";
+
 import ReactLoadingSpinner from "../ReactLoading";
 
 const Chat = () => {
+    const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
     const data: any = useLoaderData();
     const navigate = useNavigate();
@@ -38,10 +41,14 @@ const Chat = () => {
         channel.bind("message", function (data: any) {
             setmessages(data);
         });
-    }, [data]);
+        setfriend_profile(friendprfofile);
+    }, []);
+
     const fileref = useRef() as RefObject<HTMLInputElement>;
     const formData = new FormData();
+
     const upload = async () => {
+        setLoading(true);
         formData.append("reciever", friendprfofile.user);
         if (
             fileref.current &&
@@ -64,6 +71,7 @@ const Chat = () => {
             navigate("/auth");
         }
         setSendImg(false);
+        setLoading(false);
     };
 
     const sendmessage = async () => {
@@ -96,8 +104,6 @@ const Chat = () => {
         setvalid(false);
     }, [messages, valid, friendprfofile]);
 
-    setfriend_profile(friendprfofile);
-
     if (navigation.state == "loading") {
         return (
             <ReactLoadingSpinner
@@ -121,12 +127,23 @@ const Chat = () => {
                                 <img className="rounded-xl" src={url} alt="D" />
                             </div>
                             <button
+                                disabled={loading}
                                 onClick={upload}
-                                className="bg-blue-700 p-2 rounded-xl"
+                                className="bg-blue-700 p-2 flex justify-center  rounded-xl"
                             >
-                                Send
+                                <span className="text-center">Send</span>
+                                {"    "}
+                                {loading && (
+                                    <ReactLoading
+                                        type={"spin"}
+                                        color={"white"}
+                                        height={"20%"}
+                                        width={"12%"}
+                                    />
+                                )}
                             </button>
                             <button
+                                type="button"
                                 onClick={() => {
                                     setSendImg(false);
                                 }}
@@ -141,7 +158,7 @@ const Chat = () => {
             <div
                 className={`relative  py-20  h-screen bg-lightgray dark:bg-secondary`}
             >
-                <ChatHeader  />
+                <ChatHeader />
                 {messages.length > 0 ? (
                     <div className="h-[80%]  overflow-auto">
                         <div className="overflow-auto flex flex-col justify-end h-full">
@@ -163,7 +180,7 @@ const Chat = () => {
                             <img
                                 className="w-[18rem]"
                                 src="/No chat.svg"
-                                alt="f"
+                                alt="No chat"
                             />
                             <h1 className="text-2xl my-3">
                                 Your conversation is empty.

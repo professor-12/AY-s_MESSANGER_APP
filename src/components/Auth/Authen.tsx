@@ -29,7 +29,7 @@ export const Loader = async ({ request }: any) => {
         password: data.get("password"),
     };
     if (mode == "signup") {
-        const res = await fetch("http://127.0.0.1:8000/" + mode + "/", {
+        const res = await fetch(import.meta.env.VITE_BASEURL + mode + "/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -45,7 +45,7 @@ export const Loader = async ({ request }: any) => {
         localStorage.setItem("userprofile", userProfile);
         return redirect("/");
     }
-        const res = await fetch("http://127.0.0.1:8000/" + "login" + "/", {
+        const res = await fetch(import.meta.env.VITE_BASEURL + "login" + "/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
