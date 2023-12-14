@@ -38,12 +38,12 @@ const Login = () => {
         );
     };
     return (
-        <Form className="w-full" onSubmit={(e) => handleSubmit(e)}>
+        <Form className="w-fulll" onSubmit={(e) => handleSubmit(e)}>
             {issubmitting && <Loading loading="signing in"></Loading>}
             <motion.div
                 animate={{ x: [-100, 0], opacity: [0, 1] }}
                 transition={{ type: "just" }}
-                className="flex p-2 space-y-5 w-full flex-col justify-center items-center  "
+                className="flex p-2 space-y-5 w-full flex-col justify-center items-center"
             >
                 <div className="text-center ">
                     <p className="text-3xl font-semibold ">ACMessenger</p>

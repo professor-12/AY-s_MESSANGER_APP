@@ -7,7 +7,7 @@ const Auth = () => {
     const mode = params.get("mode");
     return (
         <motion.div className="flex justify-center flex-col min-h-screen   dark:bg-primary">
-            <div className="overflow-hidden  w-[70%] md:w-[60%] lg:w-[25%]  mx-auto  dark:text-white items-center flex flex-col justify-center ">
+            <div className="overflow-hidden  w-[100%] md:w-[60%] lg:w-[25%]  mx-auto  dark:text-white items-center flex flex-col justify-center ">
                 {mode === "signup" ? <Signup /> : <Login />}
             </div>
         </motion.div>
