@@ -26,7 +26,7 @@ const AddtoContact = () => {
         const data = fetchUsers();
         data.then((e) => {
             setUsers(e);
-            setloading(false)
+            setloading(false);
         });
     }, []);
 

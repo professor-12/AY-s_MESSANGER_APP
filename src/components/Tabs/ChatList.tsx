@@ -19,7 +19,7 @@ const ChatLists = () => {
                     localStorage.getItem("usercredentialstokenACMESSANGER"),
             },
         });
-        if (!data.ok) console.log(data)
+        if (!data.ok) console.log(data);
         if (data.status === 403) {
             navigate("/auth");
         }
@@ -43,20 +43,22 @@ const ChatLists = () => {
     const Users: Array<User> = contacts;
     if (loading) {
         return (
-            <ReactLoadingSpinner
-                type="spin"
-                color="blue"
-                width="10%"
-                height="12%"
-            >
-                Fetching Chats
-            </ReactLoadingSpinner>
+            <div className="bg-blue-100 dark:bg-transparent py-20">
+                <ReactLoadingSpinner
+                    type="spin"
+                    color="blue"
+                    width="10%"
+                    height="12%"
+                >
+                    Fetching Chats
+                </ReactLoadingSpinner>
+            </div>
         );
     }
     if (Users.length == 0) {
         return (
-            <div className="bg-secondary  p-3  rounded-xl ">
-                <h1 className="text-slate-400 font-semibold text-lg">
+            <div className="dark:bg-secondary bg-neutral-200 drop-shadow-xl   p-4 rounded-xl ">
+                <h1 className="dark:text-slate-400  text-slate-700 font-semibold text-lg">
                     You don't have any friend yet.
                 </h1>
                 <p className="text-sm text-gray-500">
@@ -68,9 +70,8 @@ const ChatLists = () => {
 
     return Users.map((chat) => (
         <ExpandableCard key={chat.id}>
-            <div>
+            <div onClick={() => settab(false)}>
                 <Link
-                    onClick={() => settab(false)}
                     to={`${chat.user_profile}`}
                     className="flex p-3  cursor-pointer items-start  space-x-6"
                 >

@@ -22,6 +22,7 @@ function App() {
     }, []);
 
     useEffect(() => {
+        localStorage.setItem("darkmode", "true");
         var pusher = new Pusher(import.meta.env.VITE_PUSHER_SECRET_KEY, {
             cluster: "mt1",
         });
