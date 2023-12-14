@@ -44,6 +44,11 @@ const Signup = () => {
             },
             { method: "post" }
         );
+        console.log({
+            username: name.value,
+            email: email.value,
+            password: Password.value,
+        });
         setemail({ value: "", touched: false });
         setname({ value: "", touched: false });
         setcpassword({ value: "", touched: false });

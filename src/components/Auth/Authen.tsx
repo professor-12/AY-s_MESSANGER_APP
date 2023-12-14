@@ -29,14 +29,19 @@ export const Loader = async ({ request }: any) => {
         password: data.get("password"),
     };
     if (mode == "signup") {
-        const res = await fetch(import.meta.env.VITE_BASEURL + "/" +  mode + "/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(Data),
-        });
+        const res = await fetch(
+            import.meta.env.VITE_BASEURL + "/" + mode + "/",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(Data),
+            }
+        );
         if (!res.ok) {
+            const data = await res.json();
+            console.log(data);
             return res;
         }
         const user = await res.json();
@@ -45,26 +50,23 @@ export const Loader = async ({ request }: any) => {
         localStorage.setItem("userprofile", userProfile);
         return redirect("/");
     }
-        const res = await fetch(import.meta.env.VITE_BASEURL  + "/login" + "/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(Login),
-        })
-        switch (res.status) {
-            case 404:
-                return res;
-            case 200:
-                const user = await res.json();
-                localStorage.setItem(
-                    "usercredentialstokenACMESSANGER",
-                    user.token
-                );
-                const userProfile = JSON.stringify(user.profile);
-                localStorage.setItem("userprofile", userProfile);
-                return redirect("/");
-            case 500:
-                return redirect("/auth");
-        }
+    const res = await fetch(import.meta.env.VITE_BASEURL + "/login" + "/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(Login),
+    });
+    switch (res.status) {
+        case 404:
+            return res;
+        case 200:
+            const user = await res.json();
+            localStorage.setItem("usercredentialstokenACMESSANGER", user.token);
+            const userProfile = JSON.stringify(user.profile);
+            localStorage.setItem("userprofile", userProfile);
+            return redirect("/");
+        case 500:
+            return redirect("/auth");
     }
+};
