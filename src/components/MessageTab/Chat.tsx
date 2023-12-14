@@ -192,7 +192,7 @@ const Chat = () => {
                     </div>
                 )}
                 <form onSubmit={handlesubmit} className="pt-20 w-full">
-                    <div className="flex pl-4 items-center overflow-hidden px-3 space-x-5 bg-white dark:bg-primary right-0 left-2  m-3 rounded-full absolute bottom-8">
+                    <div className="flex pl-4 items-center overflow-hidden px-3 space-x-5 bg-white dark:bg-primary right-0 left-2  m-3 rounded-full absolute lg:mb-0 bottom-8 mb-6">
                         <input
                             ref={fileref}
                             onChange={(e: any) => {
