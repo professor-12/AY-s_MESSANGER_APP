@@ -40,15 +40,14 @@ export const Loader = async ({ request }: any) => {
             }
         );
         if (!res.ok) {
-            const data = await res.json();
-            console.log(data);
             return res;
+        } else {
+            const user = await res.json();
+            localStorage.setItem("usercredentialstokenACMESSANGER", user.token);
+            const userProfile = JSON.stringify(user.profile);
+            localStorage.setItem("userprofile", userProfile);
+            return redirect("/");
         }
-        const user = await res.json();
-        localStorage.setItem("usercredentialstokenACMESSANGER", user.token);
-        const userProfile = JSON.stringify(user.profile);
-        localStorage.setItem("userprofile", userProfile);
-        return redirect("/");
     }
     const res = await fetch(import.meta.env.VITE_BASEURL + "/login" + "/", {
         method: "POST",

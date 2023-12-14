@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import { useState, FormEvent } from "react";
 import { IoMdEyeOff, IoMdEye } from "react-icons/io";
-import { useSubmit, useNavigation, Link, Form } from "react-router-dom";
+import { useSubmit, useNavigation, Link, Form, useActionData } from "react-router-dom";
 import Loading from "../Loading/Loading";
 
 const Signup = () => {
+    const data:any = useActionData()
     const navigate = useNavigation();
     const [showpassword, setshowpassord] = useState({
         Password: false,
@@ -55,6 +56,8 @@ const Signup = () => {
         setpassword({ value: "", touched: false });
     };
 
+ 
+
     return (
         <Form
             onSubmit={(e) => {
@@ -72,6 +75,11 @@ const Signup = () => {
                     <p className="text-3xl font-semibold ">Create account</p>
                     <p className="text-[#92a9a2] text-base">Fill up the form</p>
                 </div>
+                {data && (
+                    <div className="bg-red-400 rounded p-2 my-5 text-red-900 text-lg  ring-red-400/50 ring-2">
+                        A user with that username already exists
+                    </div>
+                )}
                 <div className="space-y-5  w-full flex flex-col">
                     <div className="space-y-3">
                         <label htmlFor="">Email</label>
