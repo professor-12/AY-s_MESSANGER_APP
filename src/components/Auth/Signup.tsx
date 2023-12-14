@@ -233,7 +233,7 @@ const Signup = () => {
                     </motion.button>
                 </div>
             </motion.div>
-            <div className="text-slate-500 ml-4 text-base w-full">
+            <div className="text-slate-500 text-center mb-12 text-base w-full">
                 Already have an account?{" "}
                 <Link to={"/auth?mode=Login"} className="text-blue-500">
                     Login
