@@ -18,7 +18,7 @@ const Chats = () => {
             exit="hidden"
             animate="visible"
             transition={{ type: "just"}}
-            className="space-y-2 md:space-y-3 overflow-y-auto"
+            className="space-y-3 min-h-screen overflow-y-auto"
         >
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl">Chats</h1>
@@ -29,7 +29,7 @@ const Chats = () => {
                             onClick={() => {
                                 setSelected(optionTab[index])
                             }}
-                            className=" group hover:dark:bg-mutedcolor rounded-lg p-3 cursor-pointer"
+                            className="group hover:dark:bg-mutedcolor rounded-lg p-3 cursor-pointer"
                         >
                             <span className="text-slate-700  dark:text-gray-400">{i.img}</span>
                             <div

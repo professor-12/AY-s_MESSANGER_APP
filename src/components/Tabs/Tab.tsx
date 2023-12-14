@@ -16,7 +16,7 @@ const Tab = (props: any) => {
     const selectedGroup = isSelected === "Group";
 
     return (
-        <motion.div className="h-full  dark:border-[#57575785]  overflow-y-auto md:p-5  p-2 md:pt-6 md:border-r md:min-w-[24rem] bg-white  dark:bg-primary">
+        <motion.div className="h-full min-h-screen  dark:border-[#57575785]  overflow-y-auto md:p-5  p-2 md:pt-6 md:border-r md:min-w-[24rem] bg-white  dark:bg-primary">
             <AnimatePresence>
                 {selectedGroup && <GroupTab />}
                 {selectedchat && <Chats></Chats>}

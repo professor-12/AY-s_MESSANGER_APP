@@ -41,7 +41,7 @@ const AddtoContact = () => {
             transition={{ type: "just" }}
             animate="visible"
             initial="hidden"
-            className="space-y-3"
+            className="space-y-3 h-screen overflow-scroll pb-32"
             exit="hidden"
         >
             <ExpandableCard>
