@@ -64,7 +64,7 @@ const Profile = () => {
         )
             return;
         setisubmitting(true);
-        fetch(import.meta.env.VITE_BASEURL + "/editprofile", {
+        fetch(import.meta.env.VITE_BASEURL + "/Zeditprofile", {
             method: "PUT",
             headers: {
                 Authorization:
