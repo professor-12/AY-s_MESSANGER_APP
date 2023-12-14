@@ -137,7 +137,10 @@ const Login = () => {
             </motion.div>
             <div className="text-slate-400 ml-4 text-center text-base w-full">
                 Don't have an account?{"  "}
-                <Link to={"/auth?mode=signup"} className="text-blue-500 text-center">
+                <Link
+                    to={"/auth?mode=signup"}
+                    className="text-blue-500 text-center"
+                >
                     sign in
                 </Link>
             </div>
