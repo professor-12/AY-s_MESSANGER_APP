@@ -10,7 +10,7 @@ const ChatLists = () => {
     const [loading, setloading] = useState(true);
     const [contacts, setcontacts] = useState<User[]>([]);
     const fetchData = async () => {
-        const data = await fetch("http://127.0.0.1:8000/contact/", {
+        const data = await fetch(import.meta.env.VITE_BASEURL + "/contact", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -19,6 +19,7 @@ const ChatLists = () => {
                     localStorage.getItem("usercredentialstokenACMESSANGER"),
             },
         });
+        if (!data.ok) console.log(data)
         if (data.status === 403) {
             navigate("/auth");
         }
@@ -33,6 +34,7 @@ const ChatLists = () => {
                 undefined ||
             null
         ) {
+            navigate("/auth");
             return;
         }
         fetchData();

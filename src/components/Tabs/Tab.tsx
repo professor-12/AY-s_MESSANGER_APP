@@ -5,6 +5,7 @@ import Chats from "./Chats";
 import { motion, AnimatePresence } from "framer-motion";
 import { useContextApi } from "../../store/contextApi/store";
 import Sidebar from "../sideBar/Sidebar";
+import GroupTab from "../Group/GroupTab";
 
 const Tab = (props: any) => {
     const { isSelected } = useContextApi();
@@ -12,9 +13,12 @@ const Tab = (props: any) => {
     const selectedProfile = isSelected === "profile";
     let select_add_to_contact = isSelected === "addContact";
     const selectedsettings = isSelected === "settings";
+    const selectedGroup = isSelected === "Group";
+
     return (
         <motion.div className="h-full  dark:border-[#57575785]  overflow-y-auto  p-5 pt-6 md:border-r md:min-w-[24rem] bg-white  dark:bg-primary">
             <AnimatePresence mode="wait">
+                {selectedGroup && <GroupTab />}
                 {selectedchat && <Chats></Chats>}
                 {selectedProfile && <Profile></Profile>}
                 {select_add_to_contact && <AddtoContact />}

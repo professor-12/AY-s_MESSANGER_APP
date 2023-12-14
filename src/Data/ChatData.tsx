@@ -1,7 +1,7 @@
-import  { ReactNode } from "react"
+import { ReactNode } from "react";
 interface ChatType {
-      img: ReactNode;
-      tooltip: string;
+    img: ReactNode;
+    tooltip: string;
 }
 
 export const ChatData: ChatType[] = [

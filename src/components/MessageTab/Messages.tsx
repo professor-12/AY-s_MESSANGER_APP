@@ -28,7 +28,7 @@ const Messages = ({ message }: any) => {
                     {!style && (
                         <img
                             src={
-                                import.meta.env.VITE_BASEURL + "/" + profilepics
+                                import.meta.env.VITE_BASEURL + profilepics
                             }
                             className="h-12 w-12 object-cover rounded-full"
                             alt=""
@@ -60,11 +60,12 @@ const Messages = ({ message }: any) => {
                                     className="rounded-3xl max-w-[30rem]  max-h-[30rem] z-[1000000] h-full w-full object-cover"
                                     src={
                                         import.meta.env.VITE_BASEURL +
-                                        "/" +
+                    
                                         message.img
                                     }
-                                    alt=""
-                                />
+                                        alt=""
+                                        
+                                    />
 
                                 <AnimatePresence>
                                     {expandimage && (

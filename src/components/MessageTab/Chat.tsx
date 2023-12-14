@@ -58,7 +58,7 @@ const Chat = () => {
             formData.append("img", fileref.current.files[0]);
         }
 
-        const res = await fetch("http://127.0.0.1:8000/chat", {
+        const res = await fetch(import.meta.env.VITE_BASEURL + "/chat", {
             method: "POST",
             headers: {
                 Authorization:
@@ -75,7 +75,7 @@ const Chat = () => {
     };
 
     const sendmessage = async () => {
-        const res = await fetch("http://127.0.0.1:8000/chat", {
+        const res = await fetch(import.meta.env.VITE_BASEURL + "/chat", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -228,8 +228,7 @@ export const loader = async ({ params }: any) => {
     const BODY = {
         reciever: data,
     };
-
-    const response = await fetch("http://127.0.0.1:8000/message/", {
+    const response = await fetch(import.meta.env.VITE_BASEURL + "/message/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

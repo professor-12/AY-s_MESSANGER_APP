@@ -10,8 +10,8 @@ import { FormEvent, useEffect } from "react";
 import { useState, useRef, RefObject } from "react";
 import Loading from "../Loading/Loading";
 
-const Profile = () =>  {
-    const { setprofile } = useContextApi();
+const Profile = () => {
+    const { setprofile  } = useContextApi();
     useEffect(() => {
         var pusher = new Pusher("ceffb5697c2e0be737f8", {
             cluster: "mt1",
@@ -25,6 +25,7 @@ const Profile = () =>  {
     const fileref = useRef() as RefObject<HTMLInputElement>;
     const formData = new FormData();
     const { setSelected, profile } = useContextApi();
+
     const upload = () => {
         formData.append("Bio", profile.bio);
         formData.append("displayname", profile.displayname);
@@ -37,7 +38,7 @@ const Profile = () =>  {
             formData.append("profilepics", fileref.current.files[0]);
         }
         setisubmitting(true);
-        fetch("http://127.0.0.1:8000/editprofile", {
+        fetch(import.meta.env.VITE_BASEURL +"/editprofile", {
             method: "PUT",
             headers: {
                 Authorization:
@@ -63,7 +64,7 @@ const Profile = () =>  {
         )
             return;
         setisubmitting(true);
-        fetch("http://127.0.0.1:8000/editprofile", {
+        fetch(import.meta.env.VITE_BASEURL + "/editprofile", {
             method: "PUT",
             headers: {
                 Authorization:
