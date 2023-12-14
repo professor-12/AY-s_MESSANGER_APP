@@ -4,7 +4,7 @@ const ExpandableCard = ({ children, Click = () => { } }:any) => {
         <motion.div
             onClick={Click()}
             whileHover={{ scale: 1.01 }}
-            className="rounded-xl pr-5  
+            className="rounded-xl pr-4  
             hover:bg-mutedcolor cursor-pointer"
         >
             {children}

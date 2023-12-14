@@ -18,7 +18,7 @@ const Chats = () => {
             exit="hidden"
             animate="visible"
             transition={{ type: "just"}}
-            className="space-y-3  overflow-y-auto"
+            className="space-y-2 md:space-y-3 overflow-y-auto"
         >
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl">Chats</h1>

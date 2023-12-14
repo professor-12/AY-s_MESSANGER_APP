@@ -29,7 +29,7 @@ const Root = ({ setdarkmode, darkmode }: any) => {
         >
             <div>
                 <div
-                    className="md:flex hidden h-screen dark:text-white 
+                    className="md:flex hidden min-h-screen dark:text-white 
             text-slate-700
              bg-lightgray dark:bg-secondary"
                 >
