@@ -55,7 +55,7 @@ const Signup = () => {
             onSubmit={(e) => {
                 handleSubmit(e);
             }}
-            className="w-full "
+            className="w-full h-screen overflow-y-auto pb-12 md:pb-0"
         >
             {submitting && <Loading loading="Submitting" />}
             <motion.div
