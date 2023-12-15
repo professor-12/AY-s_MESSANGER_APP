@@ -38,7 +38,7 @@ const Login = () => {
         );
     };
     return (
-        <Form className="w-fulll" onSubmit={(e) => handleSubmit(e)}>
+        <Form className="w-full" onSubmit={(e) => handleSubmit(e)}>
             {issubmitting && <Loading loading="signing in"></Loading>}
             <motion.div
                 animate={{ x: [-100, 0], opacity: [0, 1] }}
@@ -48,7 +48,7 @@ const Login = () => {
                 <div className="text-center ">
                     <p className="text-3xl font-semibold ">ACMessenger</p>
                     <p className="text-[#92a9a2] text-base">
-                        Enter your credentials
+                        Login to your account
                     </p>
 
                     {error && (
@@ -57,7 +57,7 @@ const Login = () => {
                         </div>
                     )}
                 </div>
-                <div className="space-y-5  w-full flex flex-col">
+                <div className="space-y-5   w-full flex flex-col">
                     <div className="space-y-3">
                         <label htmlFor="">Displayname</label>
                         <input
@@ -76,7 +76,7 @@ const Login = () => {
                             type="text"
                             className={`border bg-transparent ${
                                 namehaserror && "border-red-600"
-                            }  min-w-full p-3 rounded-xl focus:outline-none hover:border-blue-700 placeholder:text-slate-400 placeholder:text-lg `}
+                            }  min-w-full p-[.6rem] px-8 rounded-xl focus:outline-none hover:border-blue-700 placeholder:text-slate-400 placeholder:text-lg `}
                             placeholder="e.g example@name.com"
                         />
                         {namehaserror && (
@@ -120,7 +120,7 @@ const Login = () => {
                             placeholder="*********"
                             className={`bg-transparent ${
                                 Passwordhaserror && "border-red-600"
-                            } border min-w-full p-3 rounded-xl focus:outline-none hover:border-blue-700`}
+                            } border min-w-full p-[.6rem] rounded-xl focus:outline-none hover:border-blue-700`}
                         />
                         {namehaserror && <p>Enter a value</p>}
                     </div>
@@ -141,7 +141,7 @@ const Login = () => {
                     to={"/auth?mode=signup"}
                     className="text-blue-500 text-center"
                 >
-                    sign in
+                    sign up.
                 </Link>
             </div>
         </Form>

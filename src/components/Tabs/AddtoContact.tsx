@@ -49,7 +49,7 @@ const AddtoContact = () => {
                     onClick={() => {
                         setSelected("Chats");
                     }}
-                    className="flex p-2 px-3 cursor-pointer space-x-3"
+                    className="flex md:p-2 p-1  px-3 cursor-pointer space-x-3"
                 >
                     <img src={arrow} alt="" />
                     <p>Add Contact</p>

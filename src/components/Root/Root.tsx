@@ -44,7 +44,7 @@ const Root = ({ setdarkmode, darkmode }: any) => {
                 >
                     {tab && <Sidebar />}
                     {tab && (
-                        <Tab setdarkmode={setdarkmode} darkmode={darkmode} />
+                        <Tab setdarkmode={setdarkmode} darkmode={darkmode}/>
                     )}
                     {!tab && <MessageTab></MessageTab>}
                 </div>

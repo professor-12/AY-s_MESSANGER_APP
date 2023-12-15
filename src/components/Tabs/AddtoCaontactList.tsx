@@ -92,18 +92,18 @@ const AddtoCaontactList = ({ user }: any) => {
                     onClick={() => {
                         setcontact(true);
                     }}
-                    className="flex  px-4 p-2  items-center space-x-5"
+                    className="flex md:px-3 p-2 text-base items-center space-x-4 md:space-x-5"
                 >
                     <img
                         src={import.meta.env.VITE_BASEURL + user?.profilepics}
-                        className="w-[3rem] object-cover h-[3rem] bg-red-500 rounded-full"
+                        className="md:w-[3rem] object-cover w-[2.4rem] h-[2.4rem] md:h-[3rem] bg-red-500 rounded-full"
                         alt="#"
                     />
                     <div className="flex -space-y-1 flex-col">
-                        <span className="text-lg font-semibold">
+                        <span className="text-lg md:font-semibold">
                             {user?.displayname}
                         </span>
-                        <span className="text-gray-400">
+                        <span className="text-gray-400 md:text-base text-sm">
                             {user?.bio || "A bio"}
                         </span>
                     </div>

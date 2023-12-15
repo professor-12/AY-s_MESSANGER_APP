@@ -20,7 +20,7 @@ export const ModalContainer = ({ children }: any) => {
         <motion.div
             animate={{ x: [-100, 0] }}
             exit={{ x: -100, opacity: [1, 0] }}
-            className="dark:bg-[#0e0f2f] bg-white absolute bottom-[20%]  flex flex-col rounded-xl p-3  h-auto"
+            className="dark:bg-[#0e0f2f] z-[500] bg-white absolute bottom-[20%]  flex flex-col rounded-xl p-3  h-auto"
         >
             {children}
         </motion.div>

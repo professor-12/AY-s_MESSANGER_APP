@@ -24,7 +24,7 @@ const Messages = ({ message }: any) => {
     return (
         <>
             <div className={`${style && "justify-end"} flex  w-full`}>
-                <div className="text-black cursor-pointer flex    space-x-2  space-y-2">
+                <div className="text-black cursor-pointer flex     space-x-2  space-y-2">
                     {!style && (
                         <img
                             src={import.meta.env.VITE_BASEURL + profilepics}
@@ -55,9 +55,10 @@ const Messages = ({ message }: any) => {
                                     onClick={() =>
                                         setexpandImage((prev) => !prev)
                                     }
-                                    className="rounded-3xl max-w-[30rem]  max-h-[30rem] z-[1000000] h-full w-full object-cover"
+                                    className="rounded-3xl max-w-[30rem]  max-h-[30rem] z-30 h-full w-full object-cover"
                                     src={
                                         import.meta.env.VITE_BASEURL +
+                                        "/" +
                                         message.img
                                     }
                                     alt=""
@@ -67,7 +68,7 @@ const Messages = ({ message }: any) => {
                                     {expandimage && (
                                         <motion.div
                                             exit={{ opacity: 0 }}
-                                            className="fixed flex items-center justify-center z-[10000000]  inset-0  bg-black bg-opacity-40"
+                                            className="fixed flex items-center justify-center z-40  inset-0  bg-black bg-opacity-30"
                                             onClick={() =>
                                                 setexpandImage(false)
                                             }
@@ -85,14 +86,14 @@ const Messages = ({ message }: any) => {
                                                         (prev) => !prev
                                                     )
                                                 }
-                                                className="md:w-[25rem] w-[18rem]  z-[10000000] rounded-lg"
+                                                className="md:w-[25rem]  z-50 rounded-lg"
                                                 src={
                                                     import.meta.env
                                                         .VITE_BASEURL +
                                                     "/" +
                                                     message.img
                                                 }
-                                                alt=""
+                                                alt="sentimage"
                                             />
                                         </motion.div>
                                     )}

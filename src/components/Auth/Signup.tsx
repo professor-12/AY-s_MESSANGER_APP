@@ -63,7 +63,7 @@ const Signup = () => {
             onSubmit={(e) => {
                 handleSubmit(e);
             }}
-            className="w-full h-screen overflow-y-auto pb-12 md:pb-0"
+            className="w-full h-screen overflow-y-auto py-12 md:pb-0"
         >
             {submitting && <Loading loading="Submitting" />}
             <motion.div
@@ -100,7 +100,7 @@ const Signup = () => {
                             type="email"
                             className={`border ${
                                 emailhaserror && "border-red-600"
-                            } bg-transparent  min-w-full p-3 rounded-xl focus:outline-none hover:border-blue-700 placeholder:text-slate-400 placeholder:text-lg`}
+                            } bg-transparent  min-w-full p-[.6rem] rounded-xl focus:outline-none hover:border-blue-700 placeholder:text-slate-400 placeholder:text-lg`}
                             placeholder="e.g example@email.com"
                         />
                         {emailhaserror && (
@@ -129,7 +129,7 @@ const Signup = () => {
                             placeholder="e.g example123"
                             className={`border ${
                                 namehaserror && "border-red-600"
-                            } bg-transparent  min-w-full p-3 rounded-xl focus:outline-none hover:border-blue-700 placeholder:text-slate-400 placeholder:text-lg`}
+                            } bg-transparent  min-w-full  p-[.6rem] rounded-xl focus:outline-none hover:border-blue-700 placeholder:text-slate-400 placeholder:text-lg`}
                         />
                         {namehaserror && (
                             <p className="text-sm text-gray-400">
@@ -178,7 +178,7 @@ const Signup = () => {
                             placeholder="*********"
                             className={`border ${
                                 Passwordhaserror && "border-red-600"
-                            } bg-transparent  min-w-full p-3 rounded-xl focus:outline-none hover:border-blue-700 placeholder:text-slate-400 placeholder:text-lg`}
+                            } bg-transparent  min-w-full  p-[.6rem] rounded-xl focus:outline-none hover:border-blue-700 placeholder:text-slate-400 placeholder:text-lg`}
                         />
                         {Passwordhaserror && (
                             <p className="text-sm text-gray-400">
@@ -227,7 +227,7 @@ const Signup = () => {
                             placeholder="*********"
                             className={`border ${
                                 cpasswordhaserror && "border-red-600"
-                            } bg-transparent  min-w-full p-3 rounded-xl focus:outline-none hover:border-blue-700 placeholder:text-slate-400 placeholder:text-lg`}
+                            } bg-transparent  min-w-full  p-[.6rem] rounded-xl focus:outline-none hover:border-blue-700 placeholder:text-slate-400 placeholder:text-lg`}
                         />
                         {Passwordhaserror && (
                             <p className="text-sm text-gray-400">
